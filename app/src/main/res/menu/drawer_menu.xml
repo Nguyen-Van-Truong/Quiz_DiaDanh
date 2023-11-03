@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Trang chủ" />
+        <item
+            android:id="@+id/nav_create_room"
+            android:icon="@drawable/ic_create_room"
+            android:title="Tạo Phòng" />
+        <item
+            android:id="@+id/nav_join"
+            android:icon="@drawable/ic_join_room"
+            android:title="ic_join_room" />
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_account"
+            android:title="Tài khoản" />
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_exit"
+            android:title="Thoát" />
+    </group>
+</menu>
