@@ -10,4 +10,7 @@
 
     <color name="color_default">#2A287A</color>
     <color name="colorAccent">#6561FF</color>
+    <color name="quiz_color_default">#2A287A</color>
+    <color name="quiz_color_default2">#D9D9D9</color>
+
 </resources>
