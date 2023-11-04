@@ -1,25 +1,26 @@
 package com.example.quiz_diadanh;
 
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.navigation.NavigationView;
 
 public class NavigationDrawerController {
 
-    private MainActivity mainActivity;
+    private AppCompatActivity activity;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
 
-    public NavigationDrawerController(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
-        drawerLayout = mainActivity.findViewById(R.id.drawer_layout);
-        navigationView = mainActivity.findViewById(R.id.nav_view);
+    public NavigationDrawerController(AppCompatActivity activity) {
+        this.activity = activity;
+        drawerLayout = activity.findViewById(R.id.drawer_layout);
+        navigationView = activity.findViewById(R.id.nav_view);
     }
 
     public void setupDrawer() {
@@ -70,9 +71,10 @@ public class NavigationDrawerController {
 
 
     private void setupToolbar() {
-        Toolbar toolbar = mainActivity.findViewById(R.id.toolbar);
-        mainActivity.setSupportActionBar(toolbar);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(mainActivity, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        activity.setSupportActionBar(toolbar);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        actionBarDrawerToggle.getDrawerArrowDrawable().setColor(activity.getResources().getColor(android.R.color.white));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }

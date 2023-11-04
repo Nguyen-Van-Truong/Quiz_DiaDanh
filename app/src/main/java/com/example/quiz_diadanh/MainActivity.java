@@ -1,39 +1,50 @@
 package com.example.quiz_diadanh;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnCreateRoom, btnJoin;
+    TextView txtCreateRoom, txtJoin, test;
     NavigationDrawerController drawerController;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Đảm bảo đây là layout chứa các TextView bạn muốn truy cập
+        setContentView(R.layout.activity_main);
 
-        btnCreateRoom = findViewById(R.id.btnCreateRoom);
-        btnJoin = findViewById(R.id.btnJoin);
+        txtCreateRoom = findViewById(R.id.txtCreateRoom);
+        txtJoin = findViewById(R.id.txtJoin);
+        test = findViewById(R.id.test);
 
         drawerController = new NavigationDrawerController(this);
         drawerController.setupDrawer();
 
-        btnCreateRoom.setOnClickListener(new View.OnClickListener() {
+        test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Code cho btnCreateRoom
+                Intent intent = new Intent(MainActivity.this, QuizAnswerActivity.class);
+                startActivity(intent);
             }
         });
 
-        btnJoin.setOnClickListener(new View.OnClickListener() {
+        txtCreateRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Code cho btnJoin
             }
         });
+
+        txtJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
     }
 }

@@ -4,7 +4,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#FFFFFF"
     android:padding="0dp">
 
     <!-- Main content layout -->
@@ -24,10 +24,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:text="Trang chủ"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:layout_gravity="center"/>
+                android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>
 
 
@@ -53,85 +53,69 @@
             android:textSize="24sp" />
 
         <!-- Buttons below the Text -->
-        <Button
-            android:id="@+id/btnCreateRoom"
+        <!-- Create Room TextView with Top Drawable -->
+        <TextView
+            android:id="@+id/txtCreateRoom"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:layout_below="@id/quizzText"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@id/quizzText"
-            android:text="Tạo Phòng"
-            android:textSize="10sp"
+            android:background="#2A287A"
+            android:drawableTop="@drawable/ic_create_room"
+            android:drawablePadding="10dp"
+            android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:gravity="center"
-            android:backgroundTint="#2A287A"
+            android:text="Tạo Phòng"
             android:textColor="#FFFFFF"
-            android:layout_marginLeft ="20dp" />
+            android:textSize="10sp" />
 
-        <Button
-            android:id="@+id/btnJoin"
+        <!-- Join TextView with Top Drawable -->
+        <TextView
+            android:id="@+id/txtJoin"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:layout_below="@id/quizzText"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@id/quizzText"
-            android:backgroundTint="#2A287A"
+            android:background="#D9D9D9"
+            android:drawableTop="@drawable/ic_join_room"
+            android:drawablePadding="10dp"
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="Tham gia"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_below="@id/txtJoin"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/quizzText"
+            android:background="#D9D9D9"
+            android:drawableTop="@drawable/ic_join_room"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="test"
+            android:textColor="@color/black"
             android:textSize="10sp" />
 
 
         <!-- Bottom Navigation Layout -->
-        <LinearLayout
-            android:id="@+id/bottomNavLayout"
+        <include
+            layout="@layout/bottom_navigation_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <!-- Home Icon Button -->
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="#2A287A"
-                android:contentDescription=" "
-                android:src="@drawable/ic_home" />
-
-            <!-- Quiz Icon Button -->
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="#2A287A"
-                android:contentDescription=" "
-                android:src="@drawable/ic_quiz" />
-
-            <!-- Play Icon Button -->
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="#2A287A"
-                android:contentDescription=" "
-                android:src="@drawable/ic_play" />
-
-            <!-- Book Icon Button -->
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="#2A287A"
-                android:contentDescription=" "
-                android:src="@drawable/ic_book" />
-
-        </LinearLayout>
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 

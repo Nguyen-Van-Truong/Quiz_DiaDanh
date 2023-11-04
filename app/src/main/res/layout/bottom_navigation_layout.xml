@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomNavLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="4">
+
+    <!-- Home Icon Button -->
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="#2A287A"
+        android:contentDescription=" "
+        android:src="@drawable/ic_home" />
+
+    <!-- Quiz Icon Button -->
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="#2A287A"
+        android:contentDescription=" "
+        android:src="@drawable/ic_quiz" />
+
+    <!-- Play Icon Button -->
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="#2A287A"
+        android:contentDescription=" "
+        android:src="@drawable/ic_play" />
+
+    <!-- Book Icon Button -->
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="#2A287A"
+        android:contentDescription=" "
+        android:src="@drawable/ic_book" />
+
+</LinearLayout>

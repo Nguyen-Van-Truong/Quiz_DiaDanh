@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <!-- Phần đầu tiên chứa hình ảnh và tên -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:background="#2A287E"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -40,60 +41,60 @@
             android:id="@+id/txtCreateRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="Tạo Phòng"
+            android:clickable="true"
             android:drawableStart="@drawable/ic_create_room"
             android:drawablePadding="8dp"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:gravity="center_vertical"
-            android:clickable="true"
-            android:focusable="true" />
+            android:text="Tạo Phòng" />
 
         <!-- Mục "Tham gia" -->
         <TextView
             android:id="@+id/txtJoin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="Tham gia"
+            android:clickable="true"
             android:drawableStart="@drawable/ic_join_room"
             android:drawablePadding="8dp"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:gravity="center_vertical"
-            android:clickable="true"
-            android:focusable="true" />
+            android:text="Tham gia" />
 
         <!-- Mục "Tài khoản" -->
         <TextView
             android:id="@+id/txtAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="Tài khoản"
+            android:clickable="true"
             android:drawableStart="@drawable/ic_account"
             android:drawablePadding="8dp"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:gravity="center_vertical"
-            android:clickable="true"
-            android:focusable="true" />
+            android:text="Tài khoản" />
 
         <!-- Mục "Thoát" -->
         <TextView
             android:id="@+id/txtExit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="Thoát"
+            android:clickable="true"
             android:drawableStart="@drawable/ic_exit"
             android:drawablePadding="8dp"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:gravity="center_vertical"
-            android:clickable="true"
-            android:focusable="true" />
+            android:text="Thoát" />
 
     </LinearLayout>
 
