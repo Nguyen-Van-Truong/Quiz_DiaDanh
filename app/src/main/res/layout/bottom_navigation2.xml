@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/quiz_color_default2"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <!-- Navigation Button Container -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imgIconBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_previous" />
+        <!-- Icon -->
+        <ImageView
+            android:id="@+id/imgIconList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:src="@drawable/ic_list" />
+
+        <!-- Text label bên cạnh icon -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_vertical"
+            android:text="Danh sách" />
+
+        <ImageView
+            android:id="@+id/imgIconSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_save" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_vertical"
+            android:text="Lưu" />
+
+        <!-- Phần trống để đẩy icon next sang phải -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <!-- Icon 'Next' nằm sát bên phải -->
+        <ImageView
+            android:id="@+id/imgIconNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:src="@drawable/ic_next" />
+    </LinearLayout>
+
+
+</LinearLayout>

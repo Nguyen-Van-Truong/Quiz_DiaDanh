@@ -12,6 +12,11 @@
         android:theme="@style/Theme.Quiz_DiaDanh"
         tools:targetApi="31">
         <activity
+            android:name=".EditQuizActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
             android:name=".QuizAnswerActivity"
             android:label=""
             android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />

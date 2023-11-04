@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#2A287A"
+            android:background="@color/quiz_color_default"
             android:elevation="4dp">
 
             <TextView
@@ -62,7 +62,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@id/quizzText"
-            android:background="#2A287A"
+            android:background="@color/quiz_color_default"
             android:drawableTop="@drawable/ic_create_room"
             android:drawablePadding="10dp"
             android:gravity="center"

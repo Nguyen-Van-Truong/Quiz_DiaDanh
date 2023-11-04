@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:background="#2A287A"
+        android:background="@color/quiz_color_default"
         android:contentDescription=" "
         android:src="@drawable/ic_home" />
 
@@ -20,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:background="#2A287A"
+        android:background="@color/quiz_color_default"
         android:contentDescription=" "
         android:src="@drawable/ic_quiz" />
 
@@ -29,7 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:background="#2A287A"
+        android:background="@color/quiz_color_default"
         android:contentDescription=" "
         android:src="@drawable/ic_play" />
 
@@ -38,7 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:background="#2A287A"
+        android:background="@color/quiz_color_default"
         android:contentDescription=" "
         android:src="@drawable/ic_book" />
 
