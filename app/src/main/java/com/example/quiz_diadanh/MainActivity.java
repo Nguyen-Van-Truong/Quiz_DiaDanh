@@ -2,10 +2,13 @@ package com.example.quiz_diadanh;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,5 +49,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
+
+    public static void setTextViewDrawableSize(TextView textView, int drawableResId, int width, int height) {
+        Drawable drawable = ContextCompat.getDrawable(textView.getContext(), drawableResId);
+        if (drawable != null) {
+            drawable.setBounds(0, 0, width, height);
+        }
+        textView.setCompoundDrawables(null, drawable, null, null);
+    }
+
 }

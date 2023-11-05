@@ -14,7 +14,7 @@
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/quiz_color_default">
 
             <!-- Header layout -->
             <RelativeLayout
@@ -63,7 +63,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/topicNameTextView"
-                android:background="@color/white"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -112,7 +111,7 @@
                 android:layout_marginTop="8dp"
                 android:paddingLeft="10dp"
                 android:text="C1: Đây là danh lam thắng cảnh ở đâu?"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <!-- Answer Options Layout -->
@@ -120,55 +119,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/questionTextView"
+                android:layout_marginBottom="?attr/actionBarSize"
                 android:orientation="vertical"
-                android:padding="16dp"
-                android:layout_marginBottom="?attr/actionBarSize">
-
+                android:padding="16dp">
 
                 <!-- Answer 1 -->
-                <Button
-                    android:id="@+id/answerOneButton"
+                <TextView
+                    android:id="@+id/answerOneTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/answer_button_selector"
-                    android:drawableRight="@drawable/ic_checkmark"
+                    android:background="@drawable/answer_selector"
+                    android:drawableEnd="@drawable/ic_checkmark"
+                    android:gravity="center"
+                    android:padding="16dp"
                     android:text="Quảng Bình"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/quiz_color_default"
+                    android:clickable="true"
+                    android:focusable="true" />
 
                 <!-- Answer 2 -->
-                <Button
-                    android:id="@+id/answerTwoButton"
+                <TextView
+                    android:id="@+id/answerTwoTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/answer_button_selector"
-                    android:drawableRight="@drawable/ic_checkmark_selector"
+                    android:background="@drawable/answer_selector"
+                    android:drawableEnd="@drawable/ic_checkmark"
+                    android:gravity="center"
+                    android:padding="16dp"
                     android:text="Quảng Ninh"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/quiz_color_default"
+                    android:clickable="true"
+                    android:focusable="true" />
 
                 <!-- Answer 3 -->
-                <Button
-                    android:id="@+id/answerThreeButton"
+                <TextView
+                    android:id="@+id/answerThreeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/answer_button_selector"
-                    android:drawableRight="@drawable/ic_checkmark"
+                    android:background="@drawable/answer_selector"
+                    android:drawableEnd="@drawable/ic_checkmark"
+                    android:gravity="center"
+                    android:padding="16dp"
                     android:text="Đà Nẵng"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/quiz_color_default"
+                    android:clickable="true"
+                    android:focusable="true" />
 
                 <!-- Answer 4 -->
-                <Button
-                    android:id="@+id/answerFourButton"
+                <TextView
+                    android:id="@+id/answerFourTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/answer_button_selector"
-                    android:drawableRight="@drawable/ic_checkmark"
+                    android:background="@drawable/answer_selector"
+                    android:drawableEnd="@drawable/ic_checkmark"
+                    android:gravity="center"
+                    android:padding="16dp"
                     android:text="Hà Nội"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/quiz_color_default"
+                    android:clickable="true"
+                    android:focusable="true" />
             </LinearLayout>
+
 
             <include
                 android:id="@+id/bottomNavInclude"
