@@ -96,8 +96,8 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_below="@id/txtJoin"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="50dp"
-        android:layout_marginLeft="16dp"
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@id/quizzText"
             android:background="#D9D9D9"
@@ -106,12 +106,30 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="test"
+            android:text="test sua quiz"
             android:textColor="@color/black"
             android:textSize="10sp" />
 
-
         <!-- Bottom Navigation Layout -->
+        <TextView
+            android:id="@+id/test2"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_below="@id/txtCreateRoom"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/quizzText"
+            android:background="#D9D9D9"
+            android:drawableTop="@drawable/ic_join_room3"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="test tra loi cau hoi"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
         <include
             layout="@layout/bottom_navigation_layout"
             android:layout_width="match_parent"

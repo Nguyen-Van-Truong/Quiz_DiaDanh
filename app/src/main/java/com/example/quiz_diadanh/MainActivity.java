@@ -13,7 +13,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView txtCreateRoom, txtJoin, test;
+    TextView txtCreateRoom, txtJoin, test, test2;
     NavigationDrawerController drawerController;
 
     @SuppressLint("MissingInflatedId")
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         txtCreateRoom = findViewById(R.id.txtCreateRoom);
         txtJoin = findViewById(R.id.txtJoin);
         test = findViewById(R.id.test);
+        test2 = findViewById(R.id.test2);
 
         drawerController = new NavigationDrawerController(this);
         drawerController.setupDrawer();
@@ -36,7 +37,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        test2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, QuizAnswerActivity.class);
+                startActivity(intent);
+            }
+        });
         txtCreateRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
