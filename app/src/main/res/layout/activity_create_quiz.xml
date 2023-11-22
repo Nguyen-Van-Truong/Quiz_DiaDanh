@@ -133,7 +133,7 @@
                     android:drawableEnd="@drawable/ic_checkmark"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:text="Đáp án A"
+                    android:text="Thêm tùy chọn 1"
                     android:textColor="@color/quiz_color_default"
                     android:clickable="true"
                     android:focusable="true" />
@@ -148,7 +148,7 @@
                     android:drawableEnd="@drawable/ic_checkmark"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:text="Đáp án B"
+                    android:text="Thêm tùy chọn 2"
                     android:textColor="@color/quiz_color_default"
                     android:clickable="true"
                     android:focusable="true" />
@@ -163,7 +163,7 @@
                     android:drawableEnd="@drawable/ic_checkmark"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:text="Đáp án B"
+                    android:text="Thêm tùy chọn 3"
                     android:textColor="@color/quiz_color_default"
                     android:clickable="true"
                     android:focusable="true" />
@@ -178,7 +178,7 @@
                     android:drawableEnd="@drawable/ic_checkmark"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:text="Đáp án D"
+                    android:text="Thêm tùy chọn 4"
                     android:textColor="@color/quiz_color_default"
                     android:clickable="true"
                     android:focusable="true" />
