@@ -27,20 +27,24 @@ public class MainActivity extends AppCompatActivity {
         test = findViewById(R.id.test);
         test2 = findViewById(R.id.test2);
 
+        test.setVisibility(View.GONE);
+        test2.setVisibility(View.GONE);
+
+
         drawerController = new NavigationDrawerController(this);
         drawerController.setupDrawer();
 
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EditQuizActivity.class);
+                Intent intent = new Intent(MainActivity.this, CreateQuizActivity.class);
                 startActivity(intent);
             }
         });
         test2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, QuizAnswerActivity.class);
+                Intent intent = new Intent(MainActivity.this, EditQuizActivity.class);
                 startActivity(intent);
             }
         });
