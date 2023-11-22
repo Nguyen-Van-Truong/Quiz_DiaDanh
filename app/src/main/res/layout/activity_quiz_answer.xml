@@ -76,41 +76,44 @@
                 android:id="@+id/radioButton1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="A. Quảng Bình"
+                android:background="@drawable/radio_button_selector"
                 android:button="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
-                android:background="@drawable/radio_button_selector" />
+                android:text="A. Quảng Bình" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="B. Quảng Ninh"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/radio_button_selector"
                 android:button="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
-                android:background="@drawable/radio_button_selector" />
+                android:text="B. Quảng Ninh" />
 
             <RadioButton
                 android:id="@+id/radioButton3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="C. Đà Nẵng"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/radio_button_selector"
                 android:button="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
-                android:background="@drawable/radio_button_selector" />
+                android:text="C. Đà Nẵng" />
 
             <RadioButton
                 android:id="@+id/radioButton4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="D. Hà Nội"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/radio_button_selector"
                 android:button="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
-                android:background="@drawable/radio_button_selector" />
+                android:text="D. Hà Nội" />
 
         </RadioGroup>
 
