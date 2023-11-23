@@ -1,34 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#FFFFFF"
+    android:padding="0dp">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <!-- Main content layout -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.Quiz_DiaDanh.AppBarOverlay">
+        android:layout_height="match_parent">
 
+        <!-- Toolbar at the top -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Quiz_DiaDanh.PopupOverlay" />
+            android:background="@color/quiz_color_default"
+            android:elevation="4dp">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:text="Trang chủ"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </androidx.appcompat.widget.Toolbar>
 
-    <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        <!-- Quiz Image -->
+        <ImageView
+            android:id="@+id/quizImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/toolbar"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo" />
+
+        <!-- Quizz Text -->
+        <TextView
+            android:id="@+id/quizzText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/quizImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="Quizz"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <!-- Buttons below the Text -->
+        <!-- Create Room TextView with Top Drawable -->
+        <TextView
+            android:id="@+id/txtCreateRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_below="@id/quizzText"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/quizzText"
+            android:background="@color/quiz_color_default"
+            android:drawableTop="@drawable/ic_create_room"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Tạo Phòng"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp" />
+
+        <!-- Join TextView with Top Drawable -->
+        <TextView
+            android:id="@+id/txtJoin"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_below="@id/quizzText"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/quizzText"
+            android:background="#D9D9D9"
+            android:drawableTop="@drawable/ic_join_room4"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Tham gia"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_below="@id/txtJoin"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/quizzText"
+            android:background="#D9D9D9"
+            android:drawableTop="@drawable/ic_join_room4"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="test sua quiz"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+        <!-- Bottom Navigation Layout -->
+        <TextView
+            android:id="@+id/test2"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_below="@id/txtCreateRoom"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/quizzText"
+            android:background="#D9D9D9"
+            android:drawableTop="@drawable/ic_join_room4"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="test tra loi cau hoi"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+        <include
+            layout="@layout/bottom_navigation_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+    <!-- NavigationView for Drawer items -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_menu" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
