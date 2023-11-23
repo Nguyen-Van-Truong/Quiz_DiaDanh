@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_waitingroom">#1A2A287A</color>
     <color name="background_waitingroom2">#802A287A</color>
-
+    <color name="grey_800">#CC9F9FA5</color>
     <color name="color_default">#2A287A</color>
 </resources>
