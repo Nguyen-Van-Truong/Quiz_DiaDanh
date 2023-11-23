@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/quiz_color_default2"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <!-- Navigation Button Container -->
+    <ImageView
+        android:id="@+id/imgIconBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_previous" />
+
+    <!-- Phần trống để đẩy nội dung sang giữa -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <!-- Đoạn LinearLayout này sẽ chứa icon và text cho "Danh sách" -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:background="@color/quiz_color_default"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_vertical"
+            android:text="Danh sách"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/imgIconList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_list" />
+
+    </LinearLayout>
+
+    <!-- Khoảng cách giữa "Danh sách" và "Lưu" -->
+    <View
+        android:layout_width="16dp"
+        android:layout_height="match_parent" />
+
+    <!-- Đoạn LinearLayout này sẽ chứa icon và text cho "Lưu" -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:background="@color/quiz_color_default"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:gravity="center_vertical"
+            android:text="Lưu"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/imgIconSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_save" />
+    </LinearLayout>
+
+    <!-- Phần trống để đẩy icon next sang phải -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <!-- Icon 'Next' nằm sát bên phải -->
+    <ImageView
+        android:id="@+id/imgIconNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:src="@drawable/ic_next" />
+
+</LinearLayout>
