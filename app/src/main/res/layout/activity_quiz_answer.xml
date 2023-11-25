@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_below="@id/toolbar"
-            android:src="@drawable/cau1" />
+            android:src="@drawable/topic_1_quiz_2_20231124090030" />
 
         <!-- Timer TextView -->
         <TextView
