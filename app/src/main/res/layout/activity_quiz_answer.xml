@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="0dp">
+
+    <!-- Main content layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Toolbar at the top -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/quiz_color_default"
+            android:elevation="4dp">
+
+            <ImageButton
+                android:id="@+id/myToolbarButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription=" "
+                android:padding="16dp"
+                android:src="@drawable/ic_out_game2" />
+
+        </androidx.appcompat.widget.Toolbar>
+        <!-- ImageView for the Picture -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/toolbar"
+            android:src="@drawable/cau1" />
+
+        <!-- Timer TextView -->
+        <TextView
+            android:id="@+id/timerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="0:30"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Question TextView -->
+        <TextView
+            android:id="@+id/questionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timerTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="10dp"
+            android:text="C1: Đây là danh lam thắng cảnh ở đâu?"
+            android:textSize="18sp" />
+
+        <!-- RadioGroup for answer options -->
+        <RadioGroup
+            android:id="@+id/answerGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/questionTextView"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radio_button_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:text="A. Quảng Bình" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/radio_button_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:text="B. Quảng Ninh" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/radio_button_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:text="C. Đà Nẵng" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/radio_button_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:text="D. Hà Nội" />
+
+        </RadioGroup>
+
+
+        <!-- Include the bottom navigation -->
+        <include
+            layout="@layout/bottom_navigation_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+    <!-- NavigationView for Drawer items -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_menu" />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

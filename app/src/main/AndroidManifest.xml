@@ -12,6 +12,43 @@
         android:theme="@style/Theme.Quiz_DiaDanh"
         tools:targetApi="31">
         <activity
+            android:name=".RankingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".VerificationCodeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".ForgotActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".CreateQuizActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".EditQuizActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".QuizAnswerActivity"
+            android:label=""
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label=""
