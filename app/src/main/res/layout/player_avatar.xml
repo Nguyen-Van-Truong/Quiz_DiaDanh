@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:scaleType="centerCrop"
+    android:id="@+id/avatar">
+
+    <!-- Circular Image Background -->
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/circle_background"
+        android:layout_centerInParent="true"/>
+
+    <!-- Circular Image -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/user_image"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>
