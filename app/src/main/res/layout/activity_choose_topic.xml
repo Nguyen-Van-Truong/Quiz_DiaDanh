@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <!-- Toolbar at the top -->
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:background="@color/quiz_color_default"-->
+<!--        android:elevation="4dp">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:text="Quiz Admin"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="20sp" />-->
+<!--    </androidx.appcompat.widget.Toolbar>-->
+
+    <!-- Search Bar -->
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/ic_search"
+        android:drawablePadding="10dp"
+        android:hint="Tìm chủ đề"
+        android:padding="12dp" />
+
+    <!-- Create Quiz Button -->
+    <Button
+        android:id="@+id/btn_create_quiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_bar"
+        android:background="@drawable/button_background"
+        android:drawableLeft="@drawable/ic_plus"
+        android:drawablePadding="10dp"
+        android:paddingLeft="20dp"
+        android:text="Tạo quiz mới"
+        android:textColor="#FFFFFF" />
+
+    <!-- Category Tabs -->
+    <LinearLayout
+        android:id="@+id/category_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_create_quiz"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <!-- Tabs for "Chủ đề có sẵn", "Chủ đề của bạn", etc. -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/quiz_color_default"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Chủ đề có sẵn"
+            android:textSize="20dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/tab_background_selector"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Chủ đề của bạn"
+            android:textSize="20dp"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <!-- Quiz Category Container -->
+    <GridLayout
+        android:id="@+id/category_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_tabs"
+        android:layout_marginTop="16dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:padding="16dp"
+        android:rowCount="4">
+
+        <!-- Button "Việt Nam" -->
+        <TextView
+            android:id="@+id/category_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/category_button_background"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Việt Nam"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <!-- Repeat the TextView for more buttons, changing the text as necessary -->
+    </GridLayout>
+
+    <include
+        layout="@layout/bottom_navigation_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

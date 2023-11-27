@@ -1,0 +1,5 @@
+<!-- res/drawable/tab_background_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:drawable="@color/quiz_color_default" />
+    <item android:drawable="@color/quiz_color_default2" />
+</selector>
