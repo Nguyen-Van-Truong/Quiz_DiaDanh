@@ -12,6 +12,18 @@
         android:theme="@style/Theme.Quiz_DiaDanh"
         tools:targetApi="31">
         <activity
+            android:name=".UserAccountActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".WaitingRoomActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
+            android:name=".CodeRoomActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+        <activity
             android:name=".RankingActivity"
             android:exported="false"
             android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
@@ -33,8 +45,14 @@
             android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar" />
+            android:exported="true"
+            android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".CreateQuizActivity"
             android:exported="false"
@@ -53,11 +71,13 @@
             android:exported="true"
             android:label=""
             android:theme="@style/Theme.Quiz_DiaDanh.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 

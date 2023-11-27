@@ -54,26 +54,29 @@ public class MainActivity extends AppCompatActivity {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RankingActivity.class);
+                Intent intent = new Intent(MainActivity.this, CodeRoomActivity.class);
                 startActivity(intent);
             }
         });
         test2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ForgotActivity.class);
+                Intent intent = new Intent(MainActivity.this, WaitingRoomActivity.class);
                 startActivity(intent);
             }
         });
         txtCreateRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
 
         txtJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CodeRoomActivity.class);
+                startActivity(intent);
             }
         });
 

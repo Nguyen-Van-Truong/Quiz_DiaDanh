@@ -1,5 +1,6 @@
 package com.example.quiz_diadanh;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -33,7 +34,8 @@ public class NavigationDrawerController {
         txtCreateRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("create room");
+                Intent intent = new Intent(activity, WaitingRoomActivity.class);
+                activity.startActivity(intent);
                 drawerLayout.closeDrawer(navigationView);
             }
         });
@@ -43,7 +45,8 @@ public class NavigationDrawerController {
         txtJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("join");
+                Intent intent = new Intent(activity, CodeRoomActivity.class);
+                activity.startActivity(intent);
                 drawerLayout.closeDrawer(navigationView);
             }
         });
@@ -53,7 +56,8 @@ public class NavigationDrawerController {
         txtAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("account");
+                Intent intent = new Intent(activity, UserAccountActivity.class);
+                activity.startActivity(intent);
                 drawerLayout.closeDrawer(navigationView);
             }
         });

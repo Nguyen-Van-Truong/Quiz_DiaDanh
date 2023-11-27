@@ -84,7 +84,7 @@
 
         <!-- Register Button -->
         <TextView
-            android:id="@+id/registerButton"
+            android:id="@+id/send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/passwordInput"
@@ -104,7 +104,7 @@
             android:id="@+id/orText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/registerButton"
+            android:layout_below="@id/send"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:clickable="true"

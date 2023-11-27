@@ -5,23 +5,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
-public class VerificationCodeActivity extends AppCompatActivity {
-    TextView send;
+public class CodeRoomActivity extends AppCompatActivity {
+
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verification_code);
+        setContentView(R.layout.activity_coderoom);
 
-        send = findViewById(R.id.send);
-        send.setOnClickListener(new View.OnClickListener() {
+        button = findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VerificationCodeActivity.this, ChangePasswordActivity.class);
+                Intent intent = new Intent(CodeRoomActivity.this, WaitingRoomActivity.class);
                 startActivity(intent);
             }
         });
     }
+
+
 }

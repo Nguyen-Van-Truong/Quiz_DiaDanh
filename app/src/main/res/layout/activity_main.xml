@@ -62,14 +62,14 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@id/quizzText"
-            android:background="@color/quiz_color_default"
-            android:drawableTop="@drawable/ic_create_room"
+            android:background="@color/quiz_color_default2"
+            android:drawableTop="@drawable/ic_create_room3"
             android:drawablePadding="10dp"
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="Tạo Phòng"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/black"
             android:textSize="10sp" />
 
         <!-- Join TextView with Top Drawable -->
