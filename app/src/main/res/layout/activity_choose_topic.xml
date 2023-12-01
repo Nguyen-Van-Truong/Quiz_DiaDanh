@@ -5,24 +5,6 @@
     android:background="#FFFFFF"
     android:padding="16dp">
 
-    <!-- Toolbar at the top -->
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="@color/quiz_color_default"-->
-<!--        android:elevation="4dp">-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text="Quiz Admin"-->
-<!--            android:textColor="#FFFFFF"-->
-<!--            android:textSize="20sp" />-->
-<!--    </androidx.appcompat.widget.Toolbar>-->
-
     <!-- Search Bar -->
     <EditText
         android:id="@+id/search_bar"
@@ -98,7 +80,7 @@
             android:id="@+id/category_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="0dp"
             android:layout_weight="1"
             android:background="@drawable/category_button_background"
             android:gravity="center"

@@ -13,10 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.quiz_diadanh.model.FirebaseService;
+import com.example.quiz_diadanh.model.Quiz;
+import com.example.quiz_diadanh.widgets.NavigationDrawerController;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView txtCreateRoom, txtJoin, test, test2;
     NavigationDrawerController drawerController;
+    private FirebaseService firebaseService;
 
     @SuppressLint({"MissingInflatedId", "WrongThread"})
     @Override
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        demoLoadToRealTimeDB();
 //        demoLoadImgToStorage();
+        demoFireBaseSerivice();
+
 
         txtCreateRoom = findViewById(R.id.txtCreateRoom);
         txtJoin = findViewById(R.id.txtJoin);
@@ -82,6 +86,45 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void demoFireBaseSerivice() {
+        // Initialize FirebaseService
+        firebaseService = new FirebaseService();
+
+        // Example: Add a new quiz with id = 21
+        Quiz newQuiz = new Quiz(
+                21,
+                "What is the capital of France?",
+                "Paris",
+                "London",
+                "Berlin",
+                "Madrid",
+                "A",
+                "image_url_here",
+                "published",
+                "1" // Assuming the topic ID is 1
+        );
+
+        // Add quiz to Firebase
+        firebaseService.addQuiz(newQuiz);
+
+//        // Example: Update a user
+//        User user = new User();
+//        // Set properties of user
+//        user.setEmail("user@example.com");
+//        user.setFullName("John Doe");
+//        user.setPassword("password123");
+//        user.setPhoneNumber("1234567890");
+//        user.setStatus("active");
+//        // Update user in Firebase (assuming userID is "user1")
+//        firebaseService.updateUser("user1", user);
+//
+//        // Example: Delete a quiz (assuming quizID is "quiz1")
+//        firebaseService.deleteQuiz("quiz1");
+//
+//        // Example: Delete a user (assuming userID is "user2")
+//        firebaseService.deleteUser("user2");
     }
 
     private void demoLoadImgToStorage() {

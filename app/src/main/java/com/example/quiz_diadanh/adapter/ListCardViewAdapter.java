@@ -1,4 +1,4 @@
-package com.example.quiz_diadanh;
+package com.example.quiz_diadanh.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,8 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.quiz_diadanh.R;
+import com.example.quiz_diadanh.widgets.UserModel;
 
 import java.util.List;
 

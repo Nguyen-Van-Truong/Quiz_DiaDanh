@@ -1,4 +1,4 @@
-package com.example.quiz_diadanh;
+package com.example.quiz_diadanh.widgets;
 
 public class UserModel {
     private int srcImage;

@@ -2,10 +2,10 @@ package com.example.quiz_diadanh;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.navigation.NavigationView;
+
+import com.example.quiz_diadanh.widgets.NavigationDrawerController;
 
 public class QuizAnswerActivity extends AppCompatActivity {
 

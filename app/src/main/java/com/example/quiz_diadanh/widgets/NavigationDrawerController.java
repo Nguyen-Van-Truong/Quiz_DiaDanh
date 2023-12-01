@@ -1,4 +1,4 @@
-package com.example.quiz_diadanh;
+package com.example.quiz_diadanh.widgets;
 
 import android.content.Intent;
 import android.view.View;
@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.quiz_diadanh.CodeRoomActivity;
+import com.example.quiz_diadanh.R;
+import com.example.quiz_diadanh.UserAccountActivity;
+import com.example.quiz_diadanh.WaitingRoomActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class NavigationDrawerController {

@@ -1,4 +1,4 @@
-package com.example.quiz_diadanh;
+package com.example.quiz_diadanh.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.quiz_diadanh.model.RankingItem;
+import com.example.quiz_diadanh.R;
+import com.example.quiz_diadanh.widgets.RankingItem;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.quiz_diadanh.model;
+package com.example.quiz_diadanh.widgets;
 
 public class RankingItem {
     private int iconResId; // ID của biểu tượng

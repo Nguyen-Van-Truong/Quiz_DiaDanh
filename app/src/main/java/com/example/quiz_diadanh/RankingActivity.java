@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.example.quiz_diadanh.model.RankingItem;
+import com.example.quiz_diadanh.adapter.RankingAdapter;
+import com.example.quiz_diadanh.widgets.RankingItem;
 
 import java.util.ArrayList;
 import java.util.List;
