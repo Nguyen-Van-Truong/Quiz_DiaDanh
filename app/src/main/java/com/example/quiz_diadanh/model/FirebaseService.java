@@ -1,7 +1,10 @@
 package com.example.quiz_diadanh.model;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseService {
 
@@ -11,8 +14,41 @@ public class FirebaseService {
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
+    // Phương thức trợ giúp để tìm ID lớn nhất trong một node cụ thể và thực hiện hành động
+    private void findMaxIdAndPerformAction(String node, OnMaxIdFoundAction action) {
+        databaseReference.child(node).orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int maxId = 0;
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        Integer id = child.child("id").getValue(Integer.class);
+                        if (id != null && id > maxId) {
+                            maxId = id;
+                        }
+                    }
+                }
+                action.performAction(maxId);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle possible errors.
+            }
+        });
+    }
+
+    // Functional interface để xử lý hành động sau khi ID lớn nhất được tìm thấy
+    private interface OnMaxIdFoundAction {
+        void performAction(int maxId);
+    }
+
     public void addQuiz(Quiz quiz) {
-        databaseReference.child("quizzes").child(String.valueOf(quiz.getId())).setValue(quiz);
+        findMaxIdAndPerformAction("quizzes", currentMaxId -> {
+            int nextId = currentMaxId + 1;
+            quiz.setId(nextId);
+            databaseReference.child("quizzes").child(String.valueOf(nextId)).setValue(quiz);
+        });
     }
 
     public void updateQuiz(String quizId, Quiz quiz) {
@@ -24,7 +60,11 @@ public class FirebaseService {
     }
 
     public void addUser(User user) {
-        databaseReference.child("users").child(String.valueOf(user.getId())).setValue(user);
+        findMaxIdAndPerformAction("users", currentMaxId -> {
+            int nextId = currentMaxId + 1;
+            user.setId(nextId);
+            databaseReference.child("users").child(String.valueOf(nextId)).setValue(user);
+        });
     }
 
     public void updateUser(String userId, User user) {
@@ -36,7 +76,11 @@ public class FirebaseService {
     }
 
     public void addRoom(Room room) {
-        databaseReference.child("rooms").child(String.valueOf(room.getId())).setValue(room);
+        findMaxIdAndPerformAction("rooms", currentMaxId -> {
+            int nextId = currentMaxId + 1;
+            room.setId(nextId);
+            databaseReference.child("rooms").child(String.valueOf(nextId)).setValue(room);
+        });
     }
 
     public void updateRoom(String roomId, Room room) {
@@ -48,7 +92,11 @@ public class FirebaseService {
     }
 
     public void addTopic(Topic topic) {
-        databaseReference.child("topics").child(String.valueOf(topic.getId())).setValue(topic);
+        findMaxIdAndPerformAction("topics", currentMaxId -> {
+            int nextId = currentMaxId + 1;
+            topic.setId(nextId);
+            databaseReference.child("topics").child(String.valueOf(nextId)).setValue(topic);
+        });
     }
 
     public void updateTopic(String topicId, Topic topic) {
@@ -60,7 +108,11 @@ public class FirebaseService {
     }
 
     public void addResult(Result result) {
-        databaseReference.child("results").child(String.valueOf(result.getId())).setValue(result);
+        findMaxIdAndPerformAction("results", currentMaxId -> {
+            int nextId = currentMaxId + 1;
+            result.setId(nextId);
+            databaseReference.child("results").child(String.valueOf(nextId)).setValue(result);
+        });
     }
 
     public void updateResult(String resultId, Result result) {
@@ -72,7 +124,11 @@ public class FirebaseService {
     }
 
     public void addRoomUser(RoomUser roomUser) {
-        databaseReference.child("room_users").child(String.valueOf(roomUser.getId())).setValue(roomUser);
+        findMaxIdAndPerformAction("room_users", currentMaxId -> {
+            int nextId = currentMaxId + 1;
+            roomUser.setId(nextId);
+            databaseReference.child("room_users").child(String.valueOf(nextId)).setValue(roomUser);
+        });
     }
 
     public void updateRoomUser(String roomUserId, RoomUser roomUser) {

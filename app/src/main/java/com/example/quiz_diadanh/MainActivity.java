@@ -15,6 +15,11 @@ import androidx.core.content.ContextCompat;
 
 import com.example.quiz_diadanh.model.FirebaseService;
 import com.example.quiz_diadanh.model.Quiz;
+import com.example.quiz_diadanh.model.Result;
+import com.example.quiz_diadanh.model.Room;
+import com.example.quiz_diadanh.model.RoomUser;
+import com.example.quiz_diadanh.model.Topic;
+import com.example.quiz_diadanh.model.User;
 import com.example.quiz_diadanh.widgets.NavigationDrawerController;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,11 +42,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        demoLoadToRealTimeDB();
-//        demoLoadImgToStorage();
-        demoFireBaseSerivice();
-
 
         txtCreateRoom = findViewById(R.id.txtCreateRoom);
         txtJoin = findViewById(R.id.txtJoin);
@@ -87,44 +87,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-    private void demoFireBaseSerivice() {
-        // Initialize FirebaseService
-        firebaseService = new FirebaseService();
-
-        // Example: Add a new quiz with id = 21
-        Quiz newQuiz = new Quiz(
-                21,
-                "What is the capital of France?",
-                "Paris",
-                "London",
-                "Berlin",
-                "Madrid",
-                "A",
-                "image_url_here",
-                "published",
-                "1" // Assuming the topic ID is 1
-        );
-
-        // Add quiz to Firebase
-        firebaseService.addQuiz(newQuiz);
-
-//        // Example: Update a user
-//        User user = new User();
-//        // Set properties of user
-//        user.setEmail("user@example.com");
-//        user.setFullName("John Doe");
-//        user.setPassword("password123");
-//        user.setPhoneNumber("1234567890");
-//        user.setStatus("active");
-//        // Update user in Firebase (assuming userID is "user1")
-//        firebaseService.updateUser("user1", user);
-//
-//        // Example: Delete a quiz (assuming quizID is "quiz1")
-//        firebaseService.deleteQuiz("quiz1");
-//
-//        // Example: Delete a user (assuming userID is "user2")
-//        firebaseService.deleteUser("user2");
+    public static void setTextViewDrawableSize(TextView textView, int drawableResId, int width, int height) {
+        Drawable drawable = ContextCompat.getDrawable(textView.getContext(), drawableResId);
+        if (drawable != null) {
+            drawable.setBounds(0, 0, width, height);
+        }
+        textView.setCompoundDrawables(null, drawable, null, null);
     }
 
     private void demoLoadImgToStorage() {
@@ -159,12 +127,96 @@ public class MainActivity extends AppCompatActivity {
         myRef.setValue("haha");
     }
 
-    public static void setTextViewDrawableSize(TextView textView, int drawableResId, int width, int height) {
-        Drawable drawable = ContextCompat.getDrawable(textView.getContext(), drawableResId);
-        if (drawable != null) {
-            drawable.setBounds(0, 0, width, height);
-        }
-        textView.setCompoundDrawables(null, drawable, null, null);
+    private void demoFireBaseSerivice() {
+        // Initialize FirebaseService
+        firebaseService = new FirebaseService();
+
+//        // Example: Add a new quiz with id = 21
+//        Quiz newQuiz = new Quiz(
+//                21,
+//                "What is the capital of France?",
+//                "Paris",
+//                "London",
+//                "Berlin",
+//                "Madrid",
+//                "A",
+//                "image_url_here",
+//                "published",
+//                "1" // Assuming the topic ID is 1
+//        );
+//
+//        // Add quiz to Firebase
+//        firebaseService.addQuiz(newQuiz);
+
+//        firebaseService.deleteQuiz("21");
+//        Quiz newQuiz2 = new Quiz(
+//                21,
+//                "What is the capital of VietNam?",
+//                "Ha Long",
+//                "Vung Tau",
+//                "Do Son",
+//                "Can gio",
+//                "A",
+//                "image_url_here",
+//                "published",
+//                "1" // Assuming the topic ID is 1
+//        );
+//        firebaseService.updateQuiz("21", newQuiz2);
+
+//        // Example: Add a new user
+//        User newUser = new User(3, "user@example.com", "User Name", "password", "0123456789", "active");
+//        firebaseService.addUser(newUser);
+
+//        // Example: Update a user
+//        User updatedUser = new User(3, "user@example.com", "Updated Name", "newpassword", "0987654321", "inactive");
+//        firebaseService.updateUser("3", updatedUser);
+//
+//        // Example: Delete a user
+//        firebaseService.deleteUser("3");
+//
+//        // Example: Add a new room
+//        Room newRoom = new Room(4, 1, "Room Name", "roompass", "open", 60, 1);
+//        firebaseService.addRoom(newRoom);
+//
+//        // Example: Update a room
+//        Room updatedRoom = new Room(4, 1, "Updated Room Name", "newroompass", "closed", 30, 2);
+//        firebaseService.updateRoom("4", updatedRoom);
+//
+//        // Example: Delete a room
+//        firebaseService.deleteRoom("4");
+//
+//        // Example: Add a new topic
+//        Topic newTopic = new Topic(5, "New Topic", "Description of new topic", "active");
+//        firebaseService.addTopic(newTopic);
+//
+//        // Example: Update a topic
+//        Topic updatedTopic = new Topic(5, "Updated Topic", "Updated description", "inactive");
+//        firebaseService.updateTopic("5", updatedTopic);
+//
+//        // Example: Delete a topic
+//        firebaseService.deleteTopic("5");
+//
+        // Example: Add a new result
+//        Result newResult = new Result(6, 1, 100, "A", "accepted", "2023-04-03T12:00:00", 1);
+//        firebaseService.addResult(newResult);
+//
+        // Example: Update a result
+//        Result updatedResult = new Result(6, 1, 80, "B", "review", "2023-04-03T13:00:00", 2);
+//        firebaseService.updateResult("6", updatedResult);
+//
+//        // Example: Delete a result
+//        firebaseService.deleteResult("6");
+//
+//        // Example: Add a new room user
+//        RoomUser newRoomUser = new RoomUser(7, 1, "valid", 1);
+//        firebaseService.addRoomUser(newRoomUser);
+//
+//        // Example: Update a room user
+//        RoomUser updatedRoomUser = new RoomUser(7, 2, "invalid", 2);
+//        firebaseService.updateRoomUser("7", updatedRoomUser);
+//
+//        // Example: Delete a room user
+//        firebaseService.deleteRoomUser("7");
     }
 
 }
