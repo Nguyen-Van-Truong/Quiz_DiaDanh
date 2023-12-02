@@ -10,9 +10,9 @@ public class Quiz {
     private String correctOption;
     private String imageUrl;
     private String status;
-    private String topicId;
+    private int topicId;
 
-    public Quiz(int id, String question, String optionA, String optionB, String optionC, String optionD, String correctOption, String imageUrl, String status, String topicId) {
+    public Quiz(int id, String question, String optionA, String optionB, String optionC, String optionD, String correctOption, String imageUrl, String status, int topicId) {
         this.id = id;
         this.question = question;
         this.optionA = optionA;
@@ -100,11 +100,11 @@ public class Quiz {
         this.status = status;
     }
 
-    public String getTopicId() {
+    public int getTopicId() {
         return topicId;
     }
 
-    public void setTopicId(String topicId) {
+    public void setTopicId(int topicId) {
         this.topicId = topicId;
     }
 

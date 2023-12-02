@@ -30,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        demoFireBaseSerivice();
 
         txtCreateRoom = findViewById(R.id.txtCreateRoom);
         txtJoin = findViewById(R.id.txtJoin);
@@ -87,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     public static void setTextViewDrawableSize(TextView textView, int drawableResId, int width, int height) {
         Drawable drawable = ContextCompat.getDrawable(textView.getContext(), drawableResId);
         if (drawable != null) {
@@ -131,22 +135,35 @@ public class MainActivity extends AppCompatActivity {
         // Initialize FirebaseService
         firebaseService = new FirebaseService();
 
-//        // Example: Add a new quiz with id = 21
-//        Quiz newQuiz = new Quiz(
-//                21,
-//                "What is the capital of France?",
-//                "Paris",
-//                "London",
-//                "Berlin",
-//                "Madrid",
-//                "A",
-//                "image_url_here",
-//                "published",
-//                "1" // Assuming the topic ID is 1
-//        );
-//
-//        // Add quiz to Firebase
-//        firebaseService.addQuiz(newQuiz);
+
+        firebaseService.getAllQuizzesForTopic(1, new FirebaseService.OnAllQuizzesReceivedListener() {
+            @Override
+            public void onAllQuizzesReceived(ArrayList<Quiz> quizzes) {
+                System.out.println("size: " + quizzes.size());
+                System.out.println(quizzes);
+            }
+
+            @Override
+            public void onError(Exception exception) {
+                // Handle the error, show message to the user or log to the console
+            }
+        });
+        // Example: Add a new quiz with id = 21
+        Quiz newQuiz = new Quiz(
+                222,
+                "What is the capital of France?",
+                "Paris",
+                "London",
+                "Berlin",
+                "Madrid",
+                "A",
+                "image_url_here",
+                "published",
+                1 // Assuming the topic ID is 1
+        );
+
+        // Add quiz to Firebase
+        firebaseService.addQuiz(newQuiz);
 
 //        firebaseService.deleteQuiz("21");
 //        Quiz newQuiz2 = new Quiz(

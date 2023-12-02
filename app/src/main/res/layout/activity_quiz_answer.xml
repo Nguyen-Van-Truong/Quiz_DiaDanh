@@ -60,7 +60,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:paddingLeft="10dp"
-            android:text="C1: Đây là danh lam thắng cảnh ở đâu?"
+            android:text=""
             android:textSize="18sp" />
 
         <!-- RadioGroup for answer options -->
@@ -72,51 +72,103 @@
             android:layout_marginTop="12dp"
             android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/radioButton1"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/radio_button_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:text="A. Quảng Bình" />
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radioButton2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/radio_button_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:text="B. Quảng Ninh" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/radio_button_selector"
+                    android:paddingLeft="16dp"
+                    android:text="A. " />
 
-            <RadioButton
-                android:id="@+id/radioButton3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/radio_button_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:text="C. Đà Nẵng" />
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="start|center_vertical"
+                    android:text="" />
+            </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/radioButton4"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/radio_button_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:text="D. Hà Nội" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/radio_button_selector"
+                    android:paddingLeft="16dp"
+                    android:text="B. " />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="start|center_vertical"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/radio_button_selector"
+                    android:paddingLeft="16dp"
+                    android:text="C. " />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="start|center_vertical"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/radio_button_selector"
+                    android:paddingLeft="16dp"
+                    android:text="D. " />
+
+                <RadioButton
+                    android:id="@+id/radioButton4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="start|center_vertical"
+                    android:text="" />
+            </LinearLayout>
 
         </RadioGroup>
-
 
         <!-- Include the bottom navigation -->
         <include
