@@ -67,7 +67,7 @@
     <GridLayout
         android:id="@+id/category_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/category_tabs"
         android:layout_marginTop="16dp"
         android:alignmentMode="alignMargins"
@@ -75,19 +75,19 @@
         android:padding="16dp"
         android:rowCount="4">
 
-        <!-- Button "Việt Nam" -->
-        <TextView
-            android:id="@+id/category_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/category_button_background"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Việt Nam"
-            android:textColor="#000000"
-            android:textSize="14sp" />
+<!--        &lt;!&ndash; Button "Việt Nam" &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/category_1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@drawable/category_button_background"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="Việt Nam"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="14sp" />-->
 
         <!-- Repeat the TextView for more buttons, changing the text as necessary -->
     </GridLayout>

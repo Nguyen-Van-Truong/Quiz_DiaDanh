@@ -136,34 +136,34 @@ public class MainActivity extends AppCompatActivity {
         firebaseService = new FirebaseService();
 
 
-        firebaseService.getAllQuizzesForTopic(1, new FirebaseService.OnAllQuizzesReceivedListener() {
-            @Override
-            public void onAllQuizzesReceived(ArrayList<Quiz> quizzes) {
-                System.out.println("size: " + quizzes.size());
-                System.out.println(quizzes);
-            }
-
-            @Override
-            public void onError(Exception exception) {
-                // Handle the error, show message to the user or log to the console
-            }
-        });
-        // Example: Add a new quiz with id = 21
-        Quiz newQuiz = new Quiz(
-                222,
-                "What is the capital of France?",
-                "Paris",
-                "London",
-                "Berlin",
-                "Madrid",
-                "A",
-                "image_url_here",
-                "published",
-                1 // Assuming the topic ID is 1
-        );
-
-        // Add quiz to Firebase
-        firebaseService.addQuiz(newQuiz);
+//        firebaseService.getAllQuizzesForTopic(1, new FirebaseService.OnAllQuizzesReceivedListener() {
+//            @Override
+//            public void onAllQuizzesReceived(ArrayList<Quiz> quizzes) {
+//                System.out.println("size: " + quizzes.size());
+//                System.out.println(quizzes);
+//            }
+//
+//            @Override
+//            public void onError(Exception exception) {
+//                // Handle the error, show message to the user or log to the console
+//            }
+//        });
+//        // Example: Add a new quiz with id = 21
+//        Quiz newQuiz = new Quiz(
+//                222,
+//                "What is the capital of France?",
+//                "Paris",
+//                "London",
+//                "Berlin",
+//                "Madrid",
+//                "A",
+//                "image_url_here",
+//                "published",
+//                1 // Assuming the topic ID is 1
+//        );
+//
+//        // Add quiz to Firebase
+//        firebaseService.addQuiz(newQuiz);
 
 //        firebaseService.deleteQuiz("21");
 //        Quiz newQuiz2 = new Quiz(
@@ -202,9 +202,9 @@ public class MainActivity extends AppCompatActivity {
 //        // Example: Delete a room
 //        firebaseService.deleteRoom("4");
 //
-//        // Example: Add a new topic
-//        Topic newTopic = new Topic(5, "New Topic", "Description of new topic", "active");
-//        firebaseService.addTopic(newTopic);
+        // Example: Add a new topic
+        Topic newTopic = new Topic(5, "New Topic", "Description of new topic", "active");
+        firebaseService.addTopic(newTopic);
 //
 //        // Example: Update a topic
 //        Topic updatedTopic = new Topic(5, "Updated Topic", "Updated description", "inactive");

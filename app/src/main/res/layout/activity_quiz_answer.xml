@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_below="@id/toolbar"
-            android:src="@drawable/cau1" />
+            android:src="@drawable/img_notfound" />
 
         <!-- Timer TextView -->
         <TextView

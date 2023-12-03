@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -29,6 +30,36 @@ public class FirebaseService {
     public FirebaseService() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
+    }
+
+    public void getAllActiveTopics(OnActiveTopicsReceivedListener listener) {
+        Query activeTopicsQuery = databaseReference.child("topics").orderByChild("status").equalTo("active");
+
+        activeTopicsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Topic> activeTopics = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Topic topic = snapshot.getValue(Topic.class);
+                    if (topic != null) {
+                        activeTopics.add(topic);
+                    }
+                }
+                listener.onActiveTopicsReceived(activeTopics);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    // Functional interface for callback
+    public interface OnActiveTopicsReceivedListener {
+        void onActiveTopicsReceived(ArrayList<Topic> activeTopics);
+
+        void onError(Exception exception);
     }
 
     public void loadQuizImage(String imageUrl, ImageView imageView, Context context) {

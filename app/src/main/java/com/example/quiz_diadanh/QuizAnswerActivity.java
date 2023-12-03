@@ -2,6 +2,7 @@ package com.example.quiz_diadanh;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -27,12 +28,13 @@ public class QuizAnswerActivity extends AppCompatActivity {
     TextView questionTextView;
     RadioGroup answerGroup;
     RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+    private TextView timerTextView;
     private ImageView imageView;
-
     // Data
     private FirebaseService firebaseService;
     private ArrayList<Quiz> quizList;
     private int currentQuestionIndex = 0;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class QuizAnswerActivity extends AppCompatActivity {
 
         // Initialize views
         questionTextView = findViewById(R.id.questionTextView);
+        timerTextView = findViewById(R.id.timerTextView);
         answerGroup = findViewById(R.id.answerGroup);
         radioButton1 = findViewById(R.id.radioButton1);
         radioButton2 = findViewById(R.id.radioButton2);
@@ -51,8 +54,25 @@ public class QuizAnswerActivity extends AppCompatActivity {
         // Setup navigation drawer
         drawerController = new NavigationDrawerController(this);
         drawerController.setupDrawer();
-    }
 
+    }
+    private void startCountdownTimer(long timeInMillis) {
+        countDownTimer = new CountDownTimer(timeInMillis, 1000) {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // Update the timer TextView with the remaining time
+                timerTextView.setText(String.format("%02d:%02d",
+                        millisUntilFinished / 1000 / 60,
+                        millisUntilFinished / 1000 % 60));
+            }
+
+            @Override
+            public void onFinish() {
+                goToNextQuestion();
+            }
+        }.start();
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -88,6 +108,8 @@ public class QuizAnswerActivity extends AppCompatActivity {
             radioButton2.setText(currentQuiz.getOptionB());
             radioButton3.setText(currentQuiz.getOptionC());
             radioButton4.setText(currentQuiz.getOptionD());
+
+            startCountdownTimer(5000);
 
             firebaseService = new FirebaseService();
             firebaseService.loadQuizImage(currentQuiz.getImageUrl(), imageView, this);
