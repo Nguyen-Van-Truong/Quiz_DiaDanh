@@ -1,11 +1,11 @@
 package com.example.quiz_diadanh;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -35,6 +35,7 @@ public class QuizAnswerActivity extends AppCompatActivity {
     private ArrayList<Quiz> quizList;
     private int currentQuestionIndex = 0;
     private CountDownTimer countDownTimer;
+    int topicId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,16 @@ public class QuizAnswerActivity extends AppCompatActivity {
         drawerController = new NavigationDrawerController(this);
         drawerController.setupDrawer();
 
+        Intent receivedIntent = getIntent();
+        if (receivedIntent != null && receivedIntent.hasExtra("topic_id")) {
+            topicId = receivedIntent.getIntExtra("topic_id", -1);
+        }
+
     }
     private void startCountdownTimer(long timeInMillis) {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         countDownTimer = new CountDownTimer(timeInMillis, 1000) {
             @SuppressLint("DefaultLocale")
             @Override
@@ -77,16 +86,16 @@ public class QuizAnswerActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // Load quiz questions for the selected topic when the activity is starting or becoming visible
-        getAllQuizForTopic();
+        getAllQuizForTopic(topicId);
     }
 
-    private void getAllQuizForTopic() {
+    private void getAllQuizForTopic(int topicId) {
         // Initialize FirebaseService and the quiz list
         firebaseService = new FirebaseService();
         quizList = new ArrayList<>();
 
         // Let's say the topic ID you want to fetch is "1"
-        firebaseService.getAllQuizzesForTopic(1, new FirebaseService.OnAllQuizzesReceivedListener() {
+        firebaseService.getAllQuizzesForTopic(topicId, new FirebaseService.OnAllQuizzesReceivedListener() {
             @Override
             public void onAllQuizzesReceived(ArrayList<Quiz> quizzes) {
                 quizList.addAll(quizzes);
@@ -109,8 +118,6 @@ public class QuizAnswerActivity extends AppCompatActivity {
             radioButton3.setText(currentQuiz.getOptionC());
             radioButton4.setText(currentQuiz.getOptionD());
 
-            startCountdownTimer(5000);
-
             firebaseService = new FirebaseService();
             firebaseService.loadQuizImage(currentQuiz.getImageUrl(), imageView, this);
 
@@ -118,6 +125,9 @@ public class QuizAnswerActivity extends AppCompatActivity {
             setRadioButtonAction(radioButton2, currentQuiz);
             setRadioButtonAction(radioButton3, currentQuiz);
             setRadioButtonAction(radioButton4, currentQuiz);
+
+            startCountdownTimer(5000);
+
         } else {
             // Handle the end of the quiz
         }

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.example.quiz_diadanh.model.Room;
 import com.example.quiz_diadanh.model.RoomUser;
 import com.example.quiz_diadanh.model.Topic;
 import com.example.quiz_diadanh.model.User;
+import com.example.quiz_diadanh.model.UserPreferences;
 import com.example.quiz_diadanh.widgets.NavigationDrawerController;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,6 +33,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        demoFireBaseSerivice();
+        demoSaveUserToSharedPreferences();
+//        demoGetAllKeyUser();
 
         txtCreateRoom = findViewById(R.id.txtCreateRoom);
         txtJoin = findViewById(R.id.txtJoin);
@@ -90,6 +96,38 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void demoGetAllKeyUser() {
+        UserPreferences userPreferences = new UserPreferences(MainActivity.this);
+        Map<String, ?> allUserData = userPreferences.getAllUserData();
+
+        StringBuilder userData = new StringBuilder();
+        for (Map.Entry<String, ?> entry : allUserData.entrySet()) {
+            userData.append("Key: ").append(entry.getKey()).append(", Value: ").append(entry.getValue()).append("\n");
+        }
+
+        Toast.makeText(MainActivity.this, userData.toString(), Toast.LENGTH_LONG).show();
+
+    }
+
+    private void demoSaveUserToSharedPreferences() {
+        FirebaseService firebaseService = new FirebaseService();
+
+        firebaseService.getUserById("1", new FirebaseService.OnUserReceivedListener() {
+            @Override
+            public void onUserReceived(User user) {
+                UserPreferences userPreferences = new UserPreferences(MainActivity.this);
+                userPreferences.saveUser(user);
+                Toast.makeText(MainActivity.this, "Successfully Save user", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Exception exception) {
+                // Handle error when unable to fetch user information from Firebase
+            }
+        });
+    }
+
 
     public static void setTextViewDrawableSize(TextView textView, int drawableResId, int width, int height) {
         Drawable drawable = ContextCompat.getDrawable(textView.getContext(), drawableResId);
@@ -202,9 +240,9 @@ public class MainActivity extends AppCompatActivity {
 //        // Example: Delete a room
 //        firebaseService.deleteRoom("4");
 //
-        // Example: Add a new topic
-        Topic newTopic = new Topic(5, "New Topic", "Description of new topic", "active");
-        firebaseService.addTopic(newTopic);
+//        // Example: Add a new topic
+//        Topic newTopic = new Topic(5, "New Topic", "Description of new topic", "active");
+//        firebaseService.addTopic(newTopic);
 //
 //        // Example: Update a topic
 //        Topic updatedTopic = new Topic(5, "Updated Topic", "Updated description", "inactive");
