@@ -36,6 +36,36 @@ public class FirebaseService {
         storage = FirebaseStorage.getInstance();
     }
 
+    public void getRoomUsersByStatus(int roomId, OnRoomUsersReceivedListener listener) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+        Query query = roomUsersRef.orderByChild("roomId").equalTo(roomId);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<RoomUser> roomUsers = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    if (roomUser != null && ("creator".equals(roomUser.getStatus()) || "joined".equals(roomUser.getStatus()))) {
+                        roomUsers.add(roomUser);
+                    }
+                }
+                listener.onRoomUsersReceived(roomUsers);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    // Functional interface for callback
+    public interface OnRoomUsersReceivedListener {
+        void onRoomUsersReceived(ArrayList<RoomUser> roomUsers);
+        void onError(Exception exception);
+    }
+
     public void getRoomByCode(String code, OnRoomReceivedListener listener) {
         databaseReference.child("rooms").orderByChild("code").equalTo(code)
                 .addListenerForSingleValueEvent(new ValueEventListener() {

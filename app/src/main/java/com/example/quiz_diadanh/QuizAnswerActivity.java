@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quiz_diadanh.model.FirebaseService;
@@ -62,6 +63,28 @@ public class QuizAnswerActivity extends AppCompatActivity {
         }
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Load quiz questions for the selected topic when the activity is starting or becoming visible
+        getAllQuizForTopic(topicId);
+    }
+    public void onBackPressed() {
+        showExitConfirmationDialog();
+    }
+
+    private void showExitConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Exit Room").setMessage("Do you want to leave the room?").setPositiveButton("Yes", (dialog, which) -> handleExit()).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).create().show();
+    }
+
+    private void handleExit() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        finish();
+    }
+
     private void startCountdownTimer(long timeInMillis) {
         if (countDownTimer != null) {
             countDownTimer.cancel();
@@ -81,12 +104,6 @@ public class QuizAnswerActivity extends AppCompatActivity {
                 goToNextQuestion();
             }
         }.start();
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Load quiz questions for the selected topic when the activity is starting or becoming visible
-        getAllQuizForTopic(topicId);
     }
 
     private void getAllQuizForTopic(int topicId) {
@@ -165,6 +182,10 @@ public class QuizAnswerActivity extends AppCompatActivity {
 
                 radioButton.setChecked(true);
                 disableRadioButtons();
+
+                if (countDownTimer != null) {
+                    countDownTimer.cancel();
+                }
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -172,7 +193,7 @@ public class QuizAnswerActivity extends AppCompatActivity {
                         clearRadioButtons();
                         enableRadioButtons();
                     }
-                }, 2000); // Delay of 1 second before moving to the next question
+                }, 1000); // Delay of 1 second before moving to the next question
             }
         });
     }

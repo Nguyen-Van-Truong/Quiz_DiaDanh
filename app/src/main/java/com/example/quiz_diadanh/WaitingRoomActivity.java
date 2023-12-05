@@ -2,6 +2,8 @@ package com.example.quiz_diadanh;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.quiz_diadanh.adapter.RoomUserAdapter;
+import com.example.quiz_diadanh.model.FirebaseService;
 import com.example.quiz_diadanh.model.Room;
 import com.example.quiz_diadanh.model.RoomUser;
 import com.example.quiz_diadanh.model.User;
@@ -18,7 +22,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class WaitingRoomActivity extends AppCompatActivity {
     Button buttonBegin;
@@ -26,6 +33,13 @@ public class WaitingRoomActivity extends AppCompatActivity {
     int userId;
     int topicId;
     private Room room;
+    private FirebaseService firebaseService;
+    private RecyclerView recyclerView;
+    private RoomUserAdapter adapter;
+    private ValueEventListener roomUsersListener;
+    private Query roomUsersQuery;
+    private ValueEventListener roomStatusListener;
+    private DatabaseReference roomRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +50,109 @@ public class WaitingRoomActivity extends AppCompatActivity {
         retrieveIntentData();
 
         buttonBegin.setOnClickListener(v -> navigateToQuizAnswerActivity());
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new RoomUserAdapter(new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+        firebaseService = new FirebaseService();
+
+        setupRoomUsersListener(); // Set up the listener
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        attachListeners();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        detachListeners();
+    }
+
+    private void attachListeners() {
+        if (roomUsersQuery != null) {
+            roomUsersQuery.addValueEventListener(roomUsersListener);
+        }
+
+        roomRef = FirebaseDatabase.getInstance().getReference("rooms").child(String.valueOf(roomId));
+        roomStatusListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Room updatedRoom = dataSnapshot.getValue(Room.class);
+                if (updatedRoom != null && "playing".equals(updatedRoom.getStatus()) && userId != updatedRoom.getCreatorId()) {
+                    // Navigate to QuizAnswerActivity for other users
+                    Intent intent = new Intent(WaitingRoomActivity.this, QuizAnswerActivity.class);
+                    intent.putExtra("topic_id", topicId);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Firebase", "roomStatusListener:onCancelled", databaseError.toException());
+            }
+        };
+        roomRef.addValueEventListener(roomStatusListener);
+    }
+
+    private void detachListeners() {
+        if (roomUsersQuery != null && roomUsersListener != null) {
+            roomUsersQuery.removeEventListener(roomUsersListener);
+        }
+        if (roomRef != null && roomStatusListener != null) {
+            roomRef.removeEventListener(roomStatusListener);
+        }
+    }
+
+    private void setupRoomUsersListener() {
+        roomUsersQuery = FirebaseDatabase.getInstance().getReference("roomUsers").orderByChild("roomId").equalTo(roomId);
+
+        roomUsersListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> userIds = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    if (roomUser != null) {
+                        userIds.add(roomUser.getUserId() + "");
+                    }
+                }
+                fetchUserDetails(userIds);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Firebase", "loadRoomUsers:onCancelled", databaseError.toException());
+                Toast.makeText(WaitingRoomActivity.this, "Error loading room users: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        roomUsersQuery.addValueEventListener(roomUsersListener);
+    }
+
+    private void fetchUserDetails(ArrayList<String> userIds) {
+        ArrayList<User> users = new ArrayList<>();
+        for (String userId : userIds) {
+            firebaseService.getUserById(userId, new FirebaseService.OnUserReceivedListener() {
+                @Override
+                public void onUserReceived(User user) {
+                    if (user != null) {
+                        users.add(user);
+                        if (users.size() == userIds.size()) {
+                            adapter.setUsers(users); // Update adapter with user details
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Exception exception) {
+                    // Handle error
+                }
+            });
+        }
     }
 
     private void retrieveIntentData() {
@@ -60,21 +177,25 @@ public class WaitingRoomActivity extends AppCompatActivity {
         }
     }
 
-
     private void navigateToQuizAnswerActivity() {
-        // Check if the current user is the room creator
         if (room != null && userId == room.getCreatorId()) {
-            // If the user is the room creator, start QuizAnswerActivity
-            Intent intent = new Intent(this, QuizAnswerActivity.class);
-            intent.putExtra("topic_id", topicId);
-            startActivity(intent);
+            updateRoomStatusAndStartGame();
         } else {
-            // If the user is not the room creator, show a toast message
             Toast.makeText(this, "Chỉ chủ phòng có thể bắt đầu", Toast.LENGTH_SHORT).show();
         }
     }
 
-
+    private void updateRoomStatusAndStartGame() {
+        DatabaseReference roomRef = FirebaseDatabase.getInstance().getReference("rooms").child(String.valueOf(roomId));
+        roomRef.child("status").setValue("playing")
+                .addOnSuccessListener(aVoid -> {
+                    // Start QuizAnswerActivity
+                    Intent intent = new Intent(this, QuizAnswerActivity.class);
+                    intent.putExtra("topic_id", topicId);
+                    startActivity(intent);
+                })
+                .addOnFailureListener(e -> Toast.makeText(WaitingRoomActivity.this, "Failed to start game", Toast.LENGTH_SHORT).show());
+    }
 
     @Override
     public void onBackPressed() {
@@ -118,11 +239,10 @@ public class WaitingRoomActivity extends AppCompatActivity {
                             return;
                         }
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            RoomUser roomUser = snapshot.getValue(RoomUser.class);
-                            if (roomUser != null && roomUser.getRoomId() == roomId) {
-                                snapshot.getRef().child("status").setValue("invalid");
-                                Toast.makeText(WaitingRoomActivity.this, "User status set to invalid", Toast.LENGTH_SHORT).show();
-                            }
+                            // Delete each room user entry
+                            snapshot.getRef().removeValue()
+                                    .addOnSuccessListener(aVoid -> Toast.makeText(WaitingRoomActivity.this, "Room user removed", Toast.LENGTH_SHORT).show())
+                                    .addOnFailureListener(e -> Toast.makeText(WaitingRoomActivity.this, "Failed to remove room user", Toast.LENGTH_SHORT).show());
                         }
                         finish(); // Close the activity
                     }
@@ -135,9 +255,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
                 });
     }
 
-
     private void exitRoomAsParticipant(int roomId, int userId) {
-        // Reference to the 'roomUsers' node
         DatabaseReference roomUsersRef = FirebaseDatabase.getInstance().getReference("roomUsers");
         roomUsersRef.orderByChild("roomId").equalTo(roomId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -147,13 +265,23 @@ public class WaitingRoomActivity extends AppCompatActivity {
                             Toast.makeText(WaitingRoomActivity.this, "No users found in room", Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        boolean userFound = false;
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             RoomUser roomUser = snapshot.getValue(RoomUser.class);
                             if (roomUser != null && roomUser.getUserId() == userId) {
-                                snapshot.getRef().child("status").setValue("invalid"); // Cập nhật trạng thái của người dùng thành 'invalid'
-                                Toast.makeText(WaitingRoomActivity.this, "User status set to invalid", Toast.LENGTH_SHORT).show();
+                                // If you want to delete the entry:
+                                snapshot.getRef().removeValue();
+
+                                // If you want to mark it as 'invalid':
+                                // snapshot.getRef().child("status").setValue("invalid");
+
+                                Toast.makeText(WaitingRoomActivity.this, "You have left the room", Toast.LENGTH_SHORT).show();
+                                userFound = true;
                                 break;
                             }
+                        }
+                        if (!userFound) {
+                            Toast.makeText(WaitingRoomActivity.this, "User not found in room", Toast.LENGTH_SHORT).show();
                         }
                         finish(); // Close the activity
                     }
@@ -165,5 +293,4 @@ public class WaitingRoomActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

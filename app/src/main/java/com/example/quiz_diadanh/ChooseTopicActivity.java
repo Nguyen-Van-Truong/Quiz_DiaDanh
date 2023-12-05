@@ -124,7 +124,7 @@ public class ChooseTopicActivity extends AppCompatActivity {
             newRoom.setId(nextRoomId);  // Set the next ID to the new room
 
             RoomUser newRoomUser = new RoomUser();
-            newRoomUser.setStatus("valid");
+            newRoomUser.setStatus("creator");
             newRoomUser.setUserId(creatorId);
             newRoomUser.setRoomId(nextRoomId); // Set the correct room ID for the new room user
 

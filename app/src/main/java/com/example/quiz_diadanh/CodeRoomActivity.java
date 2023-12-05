@@ -49,7 +49,11 @@ public class CodeRoomActivity extends AppCompatActivity {
         firebaseService.getRoomByCode(code, new FirebaseService.OnRoomReceivedListener() {
             @Override
             public void onRoomReceived(Room room) {
-                joinRoom(room);
+                // Use a ternary conditional expression to check the room status
+                boolean isRoomOpen = room.getStatus().equals("open");
+                if (isRoomOpen) joinRoom(room);
+                else
+                    Toast.makeText(CodeRoomActivity.this, "Room is no longer valid", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -58,6 +62,7 @@ public class CodeRoomActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void joinRoom(Room room) {
         RoomUser roomUser = new RoomUser(0, room.getId(), "joined", currentUserId); // '0' for ID, to be set in FirebaseService
