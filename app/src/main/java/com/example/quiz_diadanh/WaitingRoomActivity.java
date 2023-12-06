@@ -31,7 +31,6 @@ public class WaitingRoomActivity extends AppCompatActivity {
     Button buttonBegin;
     int roomId;
     int userId;
-    int topicId;
     private Room room;
     private FirebaseService firebaseService;
     private RecyclerView recyclerView;
@@ -58,18 +57,33 @@ public class WaitingRoomActivity extends AppCompatActivity {
         firebaseService = new FirebaseService();
 
         setupRoomUsersListener(); // Set up the listener
+        attachListeners();
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        attachListeners();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         detachListeners();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) { // Use the appropriate request code
+            if (resultCode == RESULT_OK && data != null) {
+                String exitType = data.getStringExtra("exitType");
+                if ("participantExit".equals(exitType)) {
+                    exitRoomAsParticipant(roomId, userId);
+                }
+            }
+        }
     }
 
     private void attachListeners() {
@@ -85,8 +99,11 @@ public class WaitingRoomActivity extends AppCompatActivity {
                 if (updatedRoom != null && "playing".equals(updatedRoom.getStatus()) && userId != updatedRoom.getCreatorId()) {
                     // Navigate to QuizAnswerActivity for other users
                     Intent intent = new Intent(WaitingRoomActivity.this, QuizAnswerActivity.class);
-                    intent.putExtra("topic_id", topicId);
-                    startActivity(intent);
+                    intent.putExtra("room", room);
+                    startActivityForResult(intent, 1);
+
+                    if (room.getCreatorId() != userId)
+                        roomRef.removeEventListener(this);
                 }
             }
 
@@ -164,15 +181,11 @@ public class WaitingRoomActivity extends AppCompatActivity {
             // Use UserPreferences to get the stored user ID
             UserPreferences userPreferences = new UserPreferences(this);
             User user = userPreferences.getUser();
-            userId = user.getId(); // Update to use the ID from UserPreferences
+            userId = user.getId();
 
             // Debugging: Display the user information
             if (room != null) {
                 roomId = room.getId();
-            }
-
-            if (receivedIntent.hasExtra("topic_id")) {
-                topicId = receivedIntent.getIntExtra("topic_id", -1);
             }
         }
     }
@@ -191,8 +204,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
                 .addOnSuccessListener(aVoid -> {
                     // Start QuizAnswerActivity
                     Intent intent = new Intent(this, QuizAnswerActivity.class);
-                    intent.putExtra("topic_id", topicId);
-                    startActivity(intent);
+                    intent.putExtra("room", room);
+                    startActivityForResult(intent, 1);
                 })
                 .addOnFailureListener(e -> Toast.makeText(WaitingRoomActivity.this, "Failed to start game", Toast.LENGTH_SHORT).show());
     }

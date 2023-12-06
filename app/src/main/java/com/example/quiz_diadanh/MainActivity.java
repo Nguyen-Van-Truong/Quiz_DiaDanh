@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        demoFireBaseSerivice();
-        demoSaveUserToSharedPreferences();
+//        demoFireBaseSerivice();
+//        demoSaveUserToSharedPreferences();
 //        demoGetAllKeyUser();
 
         txtCreateRoom = findViewById(R.id.txtCreateRoom);
@@ -219,8 +219,8 @@ public class MainActivity extends AppCompatActivity {
 //        firebaseService.updateQuiz("21", newQuiz2);
 
         // Example: Add a new user
-        User newUser = new User(3, "truong3@gmail.com", "Truong3", "1", "0123456789", "active");
-        firebaseService.addUser(newUser);
+//        User newUser = new User(3, "truong4@gmail.com", "Truong4", "0123456789", "active");
+//        firebaseService.addUser(newUser);
 
 //        // Example: Update a user
 //        User updatedUser = new User(3, "user@example.com", "Updated Name", "newpassword", "0987654321", "inactive");

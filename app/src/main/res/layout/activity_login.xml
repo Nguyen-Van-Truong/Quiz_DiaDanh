@@ -11,14 +11,6 @@
         android:background="@color/quiz_color_default3"
         android:padding="16dp">
 
-        <!-- Back Navigation Icon -->
-<!--        <ImageView-->
-<!--            android:id="@+id/backIcon"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:contentDescription="back"-->
-<!--            android:src="@drawable/ic_back2" />-->
-
         <!-- App Icon or Image -->
         <ImageView
             android:id="@+id/appIcon"
@@ -42,12 +34,22 @@
             android:textSize="35sp"
             android:textStyle="bold" />
 
+        <!-- Add this inside your RelativeLayout in activity_login.xml -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_below="@id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+
         <!-- Email Input Field with Icon -->
         <EditText
             android:id="@+id/emailInput"
             android:layout_width="379dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/titleText"
+            android:layout_below="@id/progressBar"
             android:layout_marginTop="31dp"
             android:background="@drawable/edit_text_background"
             android:drawableStart="@drawable/ic_email"

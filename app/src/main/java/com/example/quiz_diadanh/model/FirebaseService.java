@@ -36,6 +36,32 @@ public class FirebaseService {
         storage = FirebaseStorage.getInstance();
     }
 
+    public void getUserByEmail(String email, OnUserReceivedListener listener) {
+        DatabaseReference usersRef = databaseReference.child("users");
+        Query query = usersRef.orderByChild("email").equalTo(email);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User user = snapshot.getValue(User.class);
+                        if (user != null) {
+                            listener.onUserReceived(user);
+                            return;
+                        }
+                    }
+                } else {
+                    listener.onError(new Exception("User not found"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
     public void getRoomUsersByStatus(int roomId, OnRoomUsersReceivedListener listener) {
         DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
         Query query = roomUsersRef.orderByChild("roomId").equalTo(roomId);

@@ -131,14 +131,13 @@ public class ChooseTopicActivity extends AppCompatActivity {
             firebaseService.addRoomUser(newRoomUser);
             firebaseService.addRoom(newRoom); // Now addRoom has the correct room ID
 
-            navigateToWaitingRoomActivity(topic, newRoom);
+            navigateToWaitingRoomActivity(newRoom);
         });
     }
 
 
-    private void navigateToWaitingRoomActivity(Topic topic, Room newRoom) {
+    private void navigateToWaitingRoomActivity(Room newRoom) {
         Intent intent = new Intent(ChooseTopicActivity.this, WaitingRoomActivity.class);
-        intent.putExtra("topic_id", topic.getId());
         intent.putExtra("room", newRoom); // Put the Room object
         startActivity(intent);
     }

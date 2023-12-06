@@ -69,7 +69,7 @@ public class CodeRoomActivity extends AppCompatActivity {
         firebaseService.addRoomUser(roomUser);
 
         Intent intent = new Intent(CodeRoomActivity.this, WaitingRoomActivity.class);
-        intent.putExtra("room", room); // Pass the room object to the next activity
+        intent.putExtra("room", room);
         startActivity(intent);
     }
 }

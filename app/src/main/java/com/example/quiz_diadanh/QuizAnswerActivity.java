@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -18,7 +19,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quiz_diadanh.model.FirebaseService;
 import com.example.quiz_diadanh.model.Quiz;
+import com.example.quiz_diadanh.model.Room;
+import com.example.quiz_diadanh.model.RoomUser;
+import com.example.quiz_diadanh.model.User;
+import com.example.quiz_diadanh.model.UserPreferences;
 import com.example.quiz_diadanh.widgets.NavigationDrawerController;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -36,7 +46,8 @@ public class QuizAnswerActivity extends AppCompatActivity {
     private ArrayList<Quiz> quizList;
     private int currentQuestionIndex = 0;
     private CountDownTimer countDownTimer;
-    int topicId = -1;
+    Room room;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,32 +69,57 @@ public class QuizAnswerActivity extends AppCompatActivity {
         drawerController.setupDrawer();
 
         Intent receivedIntent = getIntent();
-        if (receivedIntent != null && receivedIntent.hasExtra("topic_id")) {
-            topicId = receivedIntent.getIntExtra("topic_id", -1);
+        if (receivedIntent != null) {
+            room = (Room) receivedIntent.getSerializableExtra("room");
         }
+        UserPreferences userPreferences = new UserPreferences(this);
+        User user = userPreferences.getUser();
+        userId = user.getId();
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
         // Load quiz questions for the selected topic when the activity is starting or becoming visible
-        getAllQuizForTopic(topicId);
+        getAllQuizForTopic(room.getTopicId());
     }
+
     public void onBackPressed() {
         showExitConfirmationDialog();
     }
 
     private void showExitConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Exit Room").setMessage("Do you want to leave the room?").setPositiveButton("Yes", (dialog, which) -> handleExit()).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).create().show();
+        builder.setTitle("Exit Room").setMessage("Do you want to leave the quiz answer?").setPositiveButton("Yes", (dialog, which) -> handleExit()).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).create().show();
     }
 
     private void handleExit() {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
+        if (room != null) {
+            if (room.getCreatorId() == userId) {
+                finish();
+            } else {
+                exitRoomAsParticipant();
+            }
+        } else {
+            // Handle the case where the room object is null
+            Toast.makeText(QuizAnswerActivity.this, "Room not found", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    private void exitRoomAsParticipant() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("exitType", "participantExit");
+
+        setResult(RESULT_OK, resultIntent);
+
         finish();
     }
+
 
     private void startCountdownTimer(long timeInMillis) {
         if (countDownTimer != null) {
