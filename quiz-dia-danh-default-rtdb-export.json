@@ -1,0 +1,344 @@
+{
+  "quizzes": [
+    null,
+    {
+      "correctOption": "Vũng Tàu",
+      "id": 1,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_1_20231124090030.jpg",
+      "optionA": "Hà Nội",
+      "optionB": "Ninh Bình",
+      "optionC": "Vũng Tàu",
+      "optionD": "Phú Yên",
+      "question": "1. Đây là địa điểm nổi tiếng ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Quảng Ninh",
+      "id": 2,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_2_20231124090030.jpg",
+      "optionA": "Ninh Bình",
+      "optionB": "Quảng Ninh",
+      "optionC": "Phú Yên",
+      "optionD": "Quảng Bình",
+      "question": "2. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Tràng An",
+      "id": 3,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_3_20231124090030.jpg",
+      "optionA": "Phú Quốc",
+      "optionB": "Quảng Ninh",
+      "optionC": "Quảng Nam",
+      "optionD": "Tràng An",
+      "question": "3. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Hà Nội",
+      "id": 4,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_4_20231124090030.jpg",
+      "optionA": "Phú Yên",
+      "optionB": "Quy Nhơn",
+      "optionC": "Hà Nội",
+      "optionD": "Đồng Tháp",
+      "question": "4. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Tiền Giang",
+      "id": 5,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_5_20231124090030.jpg",
+      "optionA": "Cần Thơ",
+      "optionB": "Tiền Giang",
+      "optionC": "Sóc Trăng",
+      "optionD": "Cà Mau",
+      "question": "5. Đây là nơi nào?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Hà Giang",
+      "id": 6,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_6_20231124090030.jpg",
+      "optionA": "Hà Nam",
+      "optionB": "Hà Giang",
+      "optionC": "Bắc Giang",
+      "optionD": "Bình Định",
+      "question": "6. Đây là nơi nào?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Bắc Kạn",
+      "id": 7,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_7_20231124090030.jpg",
+      "optionA": "Hà Nam",
+      "optionB": "Bắc Kạn",
+      "optionC": "Quảng Bình",
+      "optionD": "Lào Cai",
+      "question": "7. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Phú Yên",
+      "id": 8,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_8_20231124090030.jpg",
+      "optionA": "Phú Yên",
+      "optionB": "Quảng Nam",
+      "optionC": "Khánh Hòa",
+      "optionD": "Vũng Tàu",
+      "question": "8. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Bình Thuận",
+      "id": 9,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_9_20231124090030.jpg",
+      "optionA": "Khánh Hòa",
+      "optionB": "Vũng Tàu",
+      "optionC": "Phú Quốc",
+      "optionD": "Bình Thuận",
+      "question": "9. Đây là ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Cần Thơ",
+      "id": 10,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_10_20231124090030.jpg",
+      "optionA": "Tiền Giang",
+      "optionB": "Cần Thơ",
+      "optionC": "Đồng Tháp",
+      "optionD": "Kiên Giang",
+      "question": "10. Đây là tỉnh nào?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Hà Nội",
+      "id": 11,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_11_20231124090030.jpg",
+      "optionA": "Cố Đô Huế",
+      "optionB": "Quảng Ninh",
+      "optionC": "Hà Nội",
+      "optionD": "Hội An",
+      "question": "11. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Quảng Bình",
+      "id": 12,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_12_20231124090030.jpg",
+      "optionA": "Quảng Nam",
+      "optionB": "Quảng Ninh",
+      "optionC": "Phú Yên",
+      "optionD": "Quảng Bình",
+      "question": "12. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Quảng Bình",
+      "id": 13,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_13_20231124090030.jpg",
+      "optionA": "Phú Quốc",
+      "optionB": "Quảng Ninh",
+      "optionC": "Quảng Bình",
+      "optionD": "Tràng An",
+      "question": "13. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Khánh Hòa",
+      "id": 14,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_14_20231124090030.jpg",
+      "optionA": "Phú Yên",
+      "optionB": "Quy Nhơn",
+      "optionC": "Hà Nội",
+      "optionD": "Khánh Hòa",
+      "question": "14. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Hà Nội",
+      "id": 15,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_15_20231124090030.jpg",
+      "optionA": "Cần Thơ",
+      "optionB": "Hà Nội",
+      "optionC": "Sóc Trăng",
+      "optionD": "Cà Mau",
+      "question": "15. Đây là nơi nào?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Đà Nẵng",
+      "id": 16,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_16_20231124090030.jpg",
+      "optionA": "Hà Nam",
+      "optionB": "Hà Giang",
+      "optionC": "Đà Nẵng",
+      "optionD": "Bình Định",
+      "question": "16. Đây là nơi nào?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Phú Quốc",
+      "id": 17,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_17_20231124090030.jpg",
+      "optionA": "Hà Nam",
+      "optionB": "Phú Quốc",
+      "optionC": "Quảng Bình",
+      "optionD": "Lào Cai",
+      "question": "17. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Tp.Hồ Chí Minh",
+      "id": 18,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_18_20231124090030.jpg",
+      "optionA": "Phú Yên",
+      "optionB": "Quảng Nam",
+      "optionC": "Khánh Hòa",
+      "optionD": "Tp.Hồ Chí Minh",
+      "question": "18. Đây là danh lam thắng cảnh ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Quảng Ninh",
+      "id": 19,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_19_20231124090030.jpg",
+      "optionA": "Quảng Ninh",
+      "optionB": "Vũng Tàu",
+      "optionC": "Phú Quốc",
+      "optionD": "Bình Thuận",
+      "question": "19. Đây là ở đâu?",
+      "status": "published",
+      "topicId": 1
+    },
+    {
+      "correctOption": "Đồng Tháp",
+      "id": 20,
+      "imageUrl": "gs://quiz-dia-danh.appspot.com/images/topic_1/topic_1_quiz_20_20231124090030.jpg",
+      "optionA": "Tiền Giang",
+      "optionB": "Cần Thơ",
+      "optionC": "Đồng Tháp",
+      "optionD": "Kiên Giang",
+      "question": "20. Đây là tỉnh nào?",
+      "status": "published",
+      "topicId": 1
+    }
+  ],
+  "results": [
+    null,
+    {
+      "id": 1,
+      "quizId": 1,
+      "score": 10,
+      "selectedOption": "A",
+      "status": "accepted",
+      "timestamp": "2023-04-01T12:00:00",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "quizId": 2,
+      "score": 20,
+      "selectedOption": "B",
+      "status": "accepted",
+      "timestamp": "2023-04-02T13:00:00",
+      "userId": 2
+    }
+  ],
+  "roomUsers": [
+    null,
+    {
+      "id": 1,
+      "roomId": 1,
+      "status": "joined",
+      "userId": 2
+    },
+    {
+      "id": 2,
+      "roomId": 1,
+      "status": "creator",
+      "userId": 1
+    }
+  ],
+  "rooms": [
+    null,
+    {
+      "code": "847741",
+      "creatorId": 1,
+      "id": 1,
+      "password": "",
+      "status": "open",
+      "timeLimit": 10,
+      "topicId": 1
+    },
+    {
+      "code": "913081",
+      "creatorId": 1,
+      "id": 2,
+      "password": "",
+      "status": "closed",
+      "timeLimit": 10,
+      "topicId": 2
+    }
+  ],
+  "topics": [
+    null,
+    {
+      "description": "Chủ đề về địa danh Việt Nam",
+      "id": 1,
+      "name": "Việt Nam",
+      "status": "active"
+    },
+    {
+      "description": "Chủ đề về địa danh Biển VN",
+      "id": 2,
+      "name": "Biển VN",
+      "status": "active"
+    }
+  ],
+  "users": [
+    null,
+    {
+      "email": "truongclone232@gmail.com",
+      "fullName": "Nguyễn Văn Trường",
+      "id": 1,
+      "password": "1",
+      "phoneNumber": "0123456789",
+      "status": "active"
+    },
+    {
+      "email": "truong2@gmail.com",
+      "fullName": "Văn Trường 2",
+      "id": 2,
+      "password": "1",
+      "phoneNumber": "0987654321",
+      "status": "active"
+    },
+    {
+      "email": "truong3@gmail.com",
+      "fullName": "Truong3",
+      "id": 3,
+      "password": "1",
+      "phoneNumber": "0123456789",
+      "status": "active"
+    }
+  ]
+}

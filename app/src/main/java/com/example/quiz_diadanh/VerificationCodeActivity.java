@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class VerificationCodeActivity extends AppCompatActivity {
@@ -21,6 +22,13 @@ public class VerificationCodeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(VerificationCodeActivity.this, ChangePasswordActivity.class);
                 startActivity(intent);
+            }
+        });
+        ImageView backIcon = findViewById(R.id.backIcon);
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

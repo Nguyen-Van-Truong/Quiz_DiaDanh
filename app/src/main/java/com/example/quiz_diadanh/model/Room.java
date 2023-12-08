@@ -1,18 +1,20 @@
 package com.example.quiz_diadanh.model;
 
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable {
     private int id;
     private int creatorId;
-    private String name;
+    private String code;
     private String password;
     private String status;
     private int timeLimit;
     private int topicId;
 
-    public Room(int id, int creatorId, String name, String password, String status, int timeLimit, int topicId) {
+    public Room(int id, int creatorId, String code, String password, String status, int timeLimit, int topicId) {
         this.id = id;
         this.creatorId = creatorId;
-        this.name = name;
+        this.code = code;
         this.password = password;
         this.status = status;
         this.timeLimit = timeLimit;
@@ -38,12 +40,12 @@ public class Room {
         this.creatorId = creatorId;
     }
 
-    public String getName() {
-        return name;
+    public String getCode() {
+        return code;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getPassword() {
@@ -83,7 +85,7 @@ public class Room {
         return "Room{" +
                 "id=" + id +
                 ", creatorId=" + creatorId +
-                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
                 ", password='" + password + '\'' +
                 ", status='" + status + '\'' +
                 ", timeLimit=" + timeLimit +

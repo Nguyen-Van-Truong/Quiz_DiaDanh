@@ -1,13 +1,16 @@
 package com.example.quiz_diadanh.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
+import com.example.quiz_diadanh.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +24,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class FirebaseService {
 
@@ -30,6 +34,367 @@ public class FirebaseService {
     public FirebaseService() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
+    }
+
+    public void resetRoomUsersStatus(int roomId, int creatorId) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+
+        roomUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    boolean a = roomUser != null && roomUser.getRoomId() == roomId;
+
+                    if (roomUser != null && roomUser.getRoomId() == roomId) {
+                        String status = (roomUser.getUserId() == creatorId) ? "creator" : "joined";
+                        snapshot.getRef().child("status").setValue(status);
+                    }
+                }
+
+                // Update room status to "open"
+                databaseReference.child("rooms").child(String.valueOf(roomId)).child("status").setValue("open");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("FirebaseService", "Error resetting room users status", databaseError.toException());
+            }
+        });
+    }
+
+
+    public DatabaseReference getDatabaseReference() {
+        return databaseReference;
+    }
+
+    public interface OnRoomUserReceivedListener {
+        void onRoomUserReceived(RoomUser roomUser);
+
+        void onError(Exception exception);
+    }
+
+    public void getRoomUserByRoomIdAndUserId(String roomId, int userId, OnRoomUserReceivedListener listener) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+        Query query = roomUsersRef.orderByChild("roomId").equalTo(roomId);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean userFound = false;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    if (roomUser != null && roomUser.getUserId() == userId) {
+                        listener.onRoomUserReceived(roomUser);
+                        userFound = true;
+                        break;
+                    }
+                }
+                if (!userFound) {
+                    listener.onError(new Exception("RoomUser not found"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    public void checkAllParticipantsBack(String roomId, OnAllParticipantsBackListener listener) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+
+        Query query = roomUsersRef;
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean allBack = true;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    if (roomUser != null && (roomUser.getRoomId() + "").equals(roomId) && roomUser.getStatus().equals("playing")) {
+                        allBack = false;
+                        break;
+                    }
+                }
+                listener.onCheckCompleted(allBack);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("FirebaseService", "Error checking participants", databaseError.toException());
+            }
+        });
+    }
+
+
+    public interface OnAllParticipantsBackListener {
+        void onCheckCompleted(boolean allBack);
+    }
+
+    public void updateRoomStatus(String roomId, String status) {
+        databaseReference.child("rooms").child(roomId).child("status").setValue(status);
+    }
+
+    public void updateStatusRoomUser(String roomId, int userId, String newStatus) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+
+        // Sử dụng một Query để tìm nút có roomId và userId tương ứng
+        Query query = roomUsersRef;
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+
+                    if (roomUser != null && roomUser.getUserId() == userId) {
+                        // Kiểm tra xem roomId của nút hiện tại có khớp với roomId bạn đang cập nhật
+                        if ((roomUser.getRoomId() + "").equals(roomId)) {
+                            snapshot.getRef().child("status").setValue(newStatus);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("FirebaseService", "Error updating participant status", databaseError.toException());
+            }
+        });
+    }
+
+
+    public void getFullNameById(int userId, OnFullNameReceivedListener listener) {
+        DatabaseReference usersRef = databaseReference.child("users").child(String.valueOf(userId));
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user != null) {
+                        String fullName = user.getFullName();
+                        listener.onFullNameReceived(fullName);
+                    } else {
+                        listener.onError(new Exception("User data is null"));
+                    }
+                } else {
+                    listener.onError(new Exception("User not found"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    // Functional interface for callback
+    public interface OnFullNameReceivedListener {
+        void onFullNameReceived(String fullName);
+
+        void onError(Exception exception);
+    }
+
+    public void getResultsForRoom(int roomId, OnResultsReceivedListener listener) {
+        DatabaseReference resultsRef = databaseReference.child("results");
+        Query query = resultsRef.orderByChild("roomId").equalTo(roomId);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Result> results = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Result result = snapshot.getValue(Result.class);
+                    if (result != null) {
+                        results.add(result);
+                    }
+                }
+                listener.onResultsReceived(results);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    public interface OnResultsReceivedListener {
+        void onResultsReceived(List<Result> results);
+
+        void onError(Exception exception);
+    }
+
+    public void getUserByEmail(String email, OnUserReceivedListener listener) {
+        DatabaseReference usersRef = databaseReference.child("users");
+        Query query = usersRef.orderByChild("email").equalTo(email);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User user = snapshot.getValue(User.class);
+                        if (user != null) {
+                            listener.onUserReceived(user);
+                            return;
+                        }
+                    }
+                } else {
+                    listener.onError(new Exception("User not found"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    public void getRoomUsersByStatus(int roomId, OnRoomUsersReceivedListener listener) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+        Query query = roomUsersRef.orderByChild("roomId").equalTo(roomId);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<RoomUser> roomUsers = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    if (roomUser != null && ("creator".equals(roomUser.getStatus()) || "joined".equals(roomUser.getStatus()))) {
+                        roomUsers.add(roomUser);
+                    }
+                }
+                listener.onRoomUsersReceived(roomUsers);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    // Functional interface for callback
+    public interface OnRoomUsersReceivedListener {
+        void onRoomUsersReceived(ArrayList<RoomUser> roomUsers);
+
+        void onError(Exception exception);
+    }
+
+    public void getRoomByCode(String code, OnRoomReceivedListener listener) {
+        databaseReference.child("rooms").orderByChild("code").equalTo(code)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Room room = snapshot.getValue(Room.class);
+                                if (room != null) {
+                                    listener.onRoomReceived(room);
+                                    return;
+                                }
+                            }
+                        }
+                        listener.onError(new Exception("Room not found"));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        listener.onError(databaseError.toException());
+                    }
+                });
+    }
+
+    // Functional interface for callback
+    public interface OnRoomReceivedListener {
+        void onRoomReceived(Room room);
+
+        void onError(Exception exception);
+    }
+
+    public void getAllUsersInRoom(String roomId, OnUsersInRoomReceivedListener listener) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+
+        // Query the roomUsers node to get all users in the specified room
+        Query roomQuery = roomUsersRef.orderByChild("roomId").equalTo(roomId);
+
+        roomQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<User> usersInRoom = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    if (roomUser != null) {
+                        // Retrieve the user information based on the userId in the roomUser
+                        String userId = roomUser.getUserId() + "";
+                        getUserById(userId, new OnUserReceivedListener() {
+                            @Override
+                            public void onUserReceived(User user) {
+                                if (user != null) {
+                                    usersInRoom.add(user);
+                                    // Check if this is the last user in the room
+                                    if (usersInRoom.size() == dataSnapshot.getChildrenCount()) {
+                                        listener.onUsersInRoomReceived(usersInRoom);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onError(Exception exception) {
+                                // Handle the error if user retrieval fails
+                                // You can choose to ignore the error or take appropriate action
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    // Functional interface for callback
+    public interface OnUsersInRoomReceivedListener {
+        void onUsersInRoomReceived(ArrayList<User> users);
+
+        void onError(Exception exception);
+    }
+
+    public void getUserById(String userId, OnUserReceivedListener listener) {
+        databaseReference.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if (user != null) {
+                    listener.onUserReceived(user);
+                } else {
+                    listener.onError(new Exception("User not found"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    // Functional interface for callback
+    public interface OnUserReceivedListener {
+        void onUserReceived(User user);
+
+        void onError(Exception exception);
     }
 
     public void getAllActiveTopics(OnActiveTopicsReceivedListener listener) {
@@ -83,10 +448,13 @@ public class FirebaseService {
                 // Lấy đường dẫn public
                 String downloadUrl = uri.toString();
 
-                // Load hình ảnh từ đường dẫn public bằng Glide
-                Glide.with(context)
-                        .load(downloadUrl)
-                        .into(imageView);
+                // Kiểm tra xem Activity còn tồn tại hay không
+                if (context instanceof Activity && !((Activity) context).isFinishing() && !((Activity) context).isDestroyed()) {
+                    // Load hình ảnh từ đường dẫn public bằng Glide
+                    Glide.with(context)
+                            .load(downloadUrl)
+                            .into(imageView);
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -237,10 +605,10 @@ public class FirebaseService {
     }
 
     public void addRoomUser(RoomUser roomUser) {
-        findMaxIdAndPerformAction("room_users", currentMaxId -> {
+        findMaxIdAndPerformAction("roomUsers", currentMaxId -> {
             int nextId = currentMaxId + 1;
             roomUser.setId(nextId);
-            databaseReference.child("room_users").child(String.valueOf(nextId)).setValue(roomUser);
+            databaseReference.child("roomUsers").child(String.valueOf(nextId)).setValue(roomUser);
         });
     }
 
@@ -250,5 +618,82 @@ public class FirebaseService {
 
     public void deleteRoomUser(String roomUserId) {
         databaseReference.child("room_users").child(roomUserId).removeValue();
+    }
+
+    private void getMaxIdFromNode(String node, OnMaxIdReceivedListener listener) {
+        databaseReference.child(node).orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int maxId = 0;
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        Integer id = child.child("id").getValue(Integer.class);
+                        if (id != null && id > maxId) {
+                            maxId = id;
+                        }
+                    }
+                }
+                listener.onMaxIdReceived(maxId);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý lỗi nếu cần
+            }
+        });
+    }
+
+    // Functional interface để xử lý hành động sau khi ID lớn nhất được tìm thấy
+    public interface OnMaxIdReceivedListener {
+        void onMaxIdReceived(int maxId);
+    }
+
+    // Phương thức để lấy ID lớn nhất từ một bảng cụ thể
+    public void getMaxIdFromTable(String tableName, OnMaxIdReceivedListener listener) {
+        getMaxIdFromNode(tableName, listener);
+    }
+
+    public void generateUniqueRoomCode(OnUniqueRoomCodeGeneratedListener listener) {
+        generateCodeRecursively(listener, new StringBuilder());
+    }
+
+    private void generateCodeRecursively(OnUniqueRoomCodeGeneratedListener listener, StringBuilder generatedCode) {
+        if (generatedCode.length() == 6) {
+            checkCodeUniqueness(generatedCode.toString(), isUnique -> {
+                if (isUnique) {
+                    listener.onUniqueRoomCodeGenerated(generatedCode.toString());
+                } else {
+                    generateCodeRecursively(listener, new StringBuilder()); // Gọi đệ quy để tạo mã mới nếu mã không duy nhất
+                }
+            });
+        } else {
+            Random random = new Random();
+            generatedCode.append(random.nextInt(10)); // Sinh số ngẫu nhiên từ 0 đến 9
+            generateCodeRecursively(listener, generatedCode); // Tiếp tục sinh mã
+        }
+    }
+
+
+    private void checkCodeUniqueness(String generatedCode, OnCodeUniquenessCheckedListener listener) {
+        databaseReference.child("rooms").orderByChild("name").equalTo(generatedCode)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        listener.onCodeUniquenessChecked(!dataSnapshot.exists());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Xử lý lỗi nếu cần
+                    }
+                });
+    }
+
+    public interface OnUniqueRoomCodeGeneratedListener {
+        void onUniqueRoomCodeGenerated(String generatedCode);
+    }
+
+    private interface OnCodeUniquenessCheckedListener {
+        void onCodeUniquenessChecked(boolean isUnique);
     }
 }

@@ -36,10 +36,19 @@ public class RankingAdapter extends ArrayAdapter<RankingItem> {
         RankingItem item = rankingItemList.get(position);
 
         ImageView iconImageView = convertView.findViewById(R.id.iconImageView);
+        TextView rankTextView = convertView.findViewById(R.id.rankTextView); // New TextView for rank
         TextView nameTextView = convertView.findViewById(R.id.nameTextView);
         TextView scoreTextView = convertView.findViewById(R.id.scoreTextView);
 
-        iconImageView.setImageResource(item.getIconResId());
+        if (item.getIconResId() != 0) {
+            iconImageView.setVisibility(View.VISIBLE);
+            rankTextView.setVisibility(View.GONE);
+            iconImageView.setImageResource(item.getIconResId());
+        } else {
+            iconImageView.setVisibility(View.GONE);
+            rankTextView.setVisibility(View.VISIBLE);
+            rankTextView.setText(String.valueOf(position + 1)); // Displaying the rank number
+        }
         nameTextView.setText(item.getName());
         scoreTextView.setText(String.valueOf(item.getScore()));
 

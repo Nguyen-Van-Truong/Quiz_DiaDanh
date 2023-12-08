@@ -4,19 +4,16 @@ public class User {
     private int id;
     private String email;
     private String fullName;
-    private String password;
     private String phoneNumber;
     private String status;
 
-    public User(int id, String email, String fullName, String password, String phoneNumber, String status) {
+    public User(int id, String email, String fullName, String phoneNumber, String status) {
         this.id = id;
         this.email = email;
         this.fullName = fullName;
-        this.password = password;
         this.phoneNumber = phoneNumber;
         this.status = status;
     }
-
     public User() {
     }
 
@@ -44,14 +41,6 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -74,7 +63,6 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +
-                ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", status='" + status + '\'' +
                 '}';

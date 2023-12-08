@@ -8,8 +8,9 @@ public class Result {
     private String status;
     private String timestamp;
     private int userId;
+    private int roomId;
 
-    public Result(int id, int quizId, int score, String selectedOption, String status, String timestamp, int userId) {
+    public Result(int id, int quizId, int score, String selectedOption, String status, String timestamp, int userId, int roomId) {
         this.id = id;
         this.quizId = quizId;
         this.score = score;
@@ -17,9 +18,18 @@ public class Result {
         this.status = status;
         this.timestamp = timestamp;
         this.userId = userId;
+        this.roomId = roomId;
     }
 
     public Result() {
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
     public int getId() {

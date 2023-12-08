@@ -1,4 +1,4 @@
-package com.example.quiz_diadanh;
+package com.example.quiz_diadanh.widgets;
 
 import android.os.Bundle;
 
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quiz_diadanh.R;
 import com.example.quiz_diadanh.adapter.ListCardViewAdapter;
 import com.example.quiz_diadanh.widgets.UserModel;
 
