@@ -13,8 +13,9 @@
         android:textStyle="bold" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/scrolRankingListView"
+        android:layout_width="wrap_content"
+        android:layout_height="400sp"
         android:layout_below="@id/titleTextView"
         android:layout_marginTop="16dp"
         android:fillViewport="true">
@@ -26,8 +27,20 @@
             android:layout_below="@id/titleTextView"
             android:layout_marginTop="16dp" />
 
-    </ScrollView>
 
+    </ScrollView>
+    <Button
+        android:id="@+id/btnBackToWaitingRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="50sp"
+        android:layout_below="@id/scrolRankingListView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
+        android:text="Trở về phòng"
+        android:textSize="25dp"
+        android:textStyle="bold" />
     <include
         layout="@layout/bottom_navigation_layout"
         android:layout_width="match_parent"

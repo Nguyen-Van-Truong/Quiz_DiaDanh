@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -19,18 +18,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quiz_diadanh.model.FirebaseService;
 import com.example.quiz_diadanh.model.Quiz;
+import com.example.quiz_diadanh.model.Result;
 import com.example.quiz_diadanh.model.Room;
-import com.example.quiz_diadanh.model.RoomUser;
 import com.example.quiz_diadanh.model.User;
 import com.example.quiz_diadanh.model.UserPreferences;
 import com.example.quiz_diadanh.widgets.NavigationDrawerController;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class QuizAnswerActivity extends AppCompatActivity {
 
@@ -137,6 +134,8 @@ public class QuizAnswerActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                saveResultWithoutAnswer();
+
                 goToNextQuestion();
             }
         }.start();
@@ -214,20 +213,24 @@ public class QuizAnswerActivity extends AppCompatActivity {
                 // Check if the answer is correct
                 String selectedOption = radioButton.getText().toString();
                 boolean isCorrect = selectedOption.equals(currentQuiz.getCorrectOption());
-                Toast.makeText(QuizAnswerActivity.this, isCorrect ? "Correct" : "Incorrect", Toast.LENGTH_SHORT).show();
 
+                if (isCorrect) {
+                    Toast.makeText(QuizAnswerActivity.this, "Correct! Score: " + 10, Toast.LENGTH_SHORT).show();
+                    saveResult(currentQuiz.getId(), selectedOption, 10); // Save the result to Firebase
+                } else {
+                    Toast.makeText(QuizAnswerActivity.this, "Incorrect", Toast.LENGTH_SHORT).show();
+                    saveResult(currentQuiz.getId(), selectedOption, 0); // Save the result to Firebase
+                }
                 radioButton.setChecked(true);
                 disableRadioButtons();
 
-                if (countDownTimer != null) {
-                    countDownTimer.cancel();
-                }
+//                if (countDownTimer != null) {
+//                    countDownTimer.cancel();
+//                }
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        goToNextQuestion();
-                        clearRadioButtons();
-                        enableRadioButtons();
+//                        goToNextQuestion();
                     }
                 }, 1000); // Delay of 1 second before moving to the next question
             }
@@ -239,13 +242,48 @@ public class QuizAnswerActivity extends AppCompatActivity {
             currentQuestionIndex++;
             answerGroup.setEnabled(true);
             displayCurrentQuestion();
+
+            clearRadioButtons();
+            enableRadioButtons();
         } else {
-            // Handle the end of the quiz
             Toast.makeText(QuizAnswerActivity.this, "End of Quiz", Toast.LENGTH_SHORT).show();
-            finish(); // Finish the activity when there are no more questions
+
+            Intent intent = new Intent(QuizAnswerActivity.this, RankingActivity.class);
+            intent.putExtra("room", room);
+            startActivityForResult(intent, 1);
+//            finish();
         }
     }
 
+    private void saveResult(int quizId, String selectedOption, int scorePlus) {
+        // Format the current date and time
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+        String currentTimestamp = dateFormat.format(new Date());
+
+        // Create a Result object with the current timestamp
+        Result result = new Result(-1, quizId, scorePlus, selectedOption, "accepted", currentTimestamp, userId, room.getId());
+
+        // Add the result to Firebase
+        firebaseService.addResult(result);
+    }
+
+    private void saveResultWithoutAnswer() {
+        int quizId = -1;
+        if (currentQuestionIndex < quizList.size()) {
+            Quiz currentQuiz = quizList.get(currentQuestionIndex);
+            quizId = currentQuiz.getId();
+        }
+
+        // Format the current date and time
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+        String currentTimestamp = dateFormat.format(new Date());
+
+        // Create a Result object with the current timestamp, no selected option, and a score of 0
+        Result result = new Result(-1, quizId, 0, "", "time_elapsed", currentTimestamp, userId, room.getId());
+
+        // Add the result to Firebase
+        firebaseService.addResult(result);
+    }
 
     // ... Rest of your activity code, including event handlers and navigation logic ...
 }

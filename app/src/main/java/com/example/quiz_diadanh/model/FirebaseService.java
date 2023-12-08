@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
-import com.example.quiz_diadanh.WaitingRoomActivity;
+import com.example.quiz_diadanh.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +23,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FirebaseService {
 
@@ -34,6 +34,201 @@ public class FirebaseService {
     public FirebaseService() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
+    }
+
+    public void resetRoomUsersStatus(int roomId, int creatorId) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+
+        roomUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    boolean a = roomUser != null && roomUser.getRoomId() == roomId;
+
+                    if (roomUser != null && roomUser.getRoomId() == roomId) {
+                        String status = (roomUser.getUserId() == creatorId) ? "creator" : "joined";
+                        snapshot.getRef().child("status").setValue(status);
+                    }
+                }
+
+                // Update room status to "open"
+                databaseReference.child("rooms").child(String.valueOf(roomId)).child("status").setValue("open");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("FirebaseService", "Error resetting room users status", databaseError.toException());
+            }
+        });
+    }
+
+
+    public DatabaseReference getDatabaseReference() {
+        return databaseReference;
+    }
+
+    public interface OnRoomUserReceivedListener {
+        void onRoomUserReceived(RoomUser roomUser);
+
+        void onError(Exception exception);
+    }
+
+    public void getRoomUserByRoomIdAndUserId(String roomId, int userId, OnRoomUserReceivedListener listener) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+        Query query = roomUsersRef.orderByChild("roomId").equalTo(roomId);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean userFound = false;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    if (roomUser != null && roomUser.getUserId() == userId) {
+                        listener.onRoomUserReceived(roomUser);
+                        userFound = true;
+                        break;
+                    }
+                }
+                if (!userFound) {
+                    listener.onError(new Exception("RoomUser not found"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    public void checkAllParticipantsBack(String roomId, OnAllParticipantsBackListener listener) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+
+        Query query = roomUsersRef;
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean allBack = true;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+                    if (roomUser != null && (roomUser.getRoomId() + "").equals(roomId) && roomUser.getStatus().equals("playing")) {
+                        allBack = false;
+                        break;
+                    }
+                }
+                listener.onCheckCompleted(allBack);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("FirebaseService", "Error checking participants", databaseError.toException());
+            }
+        });
+    }
+
+
+    public interface OnAllParticipantsBackListener {
+        void onCheckCompleted(boolean allBack);
+    }
+
+    public void updateRoomStatus(String roomId, String status) {
+        databaseReference.child("rooms").child(roomId).child("status").setValue(status);
+    }
+
+    public void updateStatusRoomUser(String roomId, int userId, String newStatus) {
+        DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
+
+        // Sử dụng một Query để tìm nút có roomId và userId tương ứng
+        Query query = roomUsersRef;
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RoomUser roomUser = snapshot.getValue(RoomUser.class);
+
+                    if (roomUser != null && roomUser.getUserId() == userId) {
+                        // Kiểm tra xem roomId của nút hiện tại có khớp với roomId bạn đang cập nhật
+                        if ((roomUser.getRoomId() + "").equals(roomId)) {
+                            snapshot.getRef().child("status").setValue(newStatus);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("FirebaseService", "Error updating participant status", databaseError.toException());
+            }
+        });
+    }
+
+
+    public void getFullNameById(int userId, OnFullNameReceivedListener listener) {
+        DatabaseReference usersRef = databaseReference.child("users").child(String.valueOf(userId));
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user != null) {
+                        String fullName = user.getFullName();
+                        listener.onFullNameReceived(fullName);
+                    } else {
+                        listener.onError(new Exception("User data is null"));
+                    }
+                } else {
+                    listener.onError(new Exception("User not found"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    // Functional interface for callback
+    public interface OnFullNameReceivedListener {
+        void onFullNameReceived(String fullName);
+
+        void onError(Exception exception);
+    }
+
+    public void getResultsForRoom(int roomId, OnResultsReceivedListener listener) {
+        DatabaseReference resultsRef = databaseReference.child("results");
+        Query query = resultsRef.orderByChild("roomId").equalTo(roomId);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Result> results = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Result result = snapshot.getValue(Result.class);
+                    if (result != null) {
+                        results.add(result);
+                    }
+                }
+                listener.onResultsReceived(results);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    public interface OnResultsReceivedListener {
+        void onResultsReceived(List<Result> results);
+
+        void onError(Exception exception);
     }
 
     public void getUserByEmail(String email, OnUserReceivedListener listener) {
@@ -62,6 +257,7 @@ public class FirebaseService {
             }
         });
     }
+
     public void getRoomUsersByStatus(int roomId, OnRoomUsersReceivedListener listener) {
         DatabaseReference roomUsersRef = databaseReference.child("roomUsers");
         Query query = roomUsersRef.orderByChild("roomId").equalTo(roomId);
@@ -89,6 +285,7 @@ public class FirebaseService {
     // Functional interface for callback
     public interface OnRoomUsersReceivedListener {
         void onRoomUsersReceived(ArrayList<RoomUser> roomUsers);
+
         void onError(Exception exception);
     }
 
@@ -119,6 +316,7 @@ public class FirebaseService {
     // Functional interface for callback
     public interface OnRoomReceivedListener {
         void onRoomReceived(Room room);
+
         void onError(Exception exception);
     }
 

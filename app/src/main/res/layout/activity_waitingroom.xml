@@ -42,11 +42,11 @@
 
                 <!-- Input -->
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/codeWaitingRoom"
                     android:layout_width="250dp"
                     android:layout_height="60dp"
                     android:layout_centerHorizontal="true"
-                    android:hint="906487"
+                    android:text=""
                     android:textSize="30dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -59,7 +59,7 @@
                     android:layout_width="290dp"
                     android:layout_height="60dp"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_below="@id/editText"
+                    android:layout_below="@id/codeWaitingRoom"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/button_background"

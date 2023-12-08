@@ -53,7 +53,7 @@
 
                 <!-- Input -->
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/codeJoinRoom"
                     android:layout_width="290dp"
                     android:layout_height="80dp"
                     android:layout_marginHorizontal="5dp"
@@ -67,7 +67,7 @@
                     android:id="@+id/button"
                     android:layout_width="290dp"
                     android:layout_height="80dp"
-                    android:layout_below="@id/editText"
+                    android:layout_below="@id/codeJoinRoom"
                     android:layout_centerHorizontal="true"
                     android:layout_marginHorizontal="5dp"
                     android:layout_marginTop="16dp"

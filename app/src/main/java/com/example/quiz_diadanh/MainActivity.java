@@ -15,11 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.quiz_diadanh.model.FirebaseService;
-import com.example.quiz_diadanh.model.Quiz;
 import com.example.quiz_diadanh.model.Result;
-import com.example.quiz_diadanh.model.Room;
-import com.example.quiz_diadanh.model.RoomUser;
-import com.example.quiz_diadanh.model.Topic;
 import com.example.quiz_diadanh.model.User;
 import com.example.quiz_diadanh.model.UserPreferences;
 import com.example.quiz_diadanh.widgets.NavigationDrawerController;
@@ -32,9 +28,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        demoFireBaseSerivice();
+        demoFireBaseSerivice();
 //        demoSaveUserToSharedPreferences();
 //        demoGetAllKeyUser();
 
@@ -172,6 +166,10 @@ public class MainActivity extends AppCompatActivity {
     private void demoFireBaseSerivice() {
         // Initialize FirebaseService
         firebaseService = new FirebaseService();
+        firebaseService.resetRoomUsersStatus(3,2);
+//        firebaseService.updateStatusRoomUser(MainActivity.this, 3 + "", 2, "creator");
+
+//        Toast.makeText(MainActivity.this, "updateStatusRoomUser", Toast.LENGTH_LONG).show();
 
 
 //        firebaseService.getAllQuizzesForTopic(1, new FirebaseService.OnAllQuizzesReceivedListener() {
@@ -252,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 //        firebaseService.deleteTopic("5");
 //
         // Example: Add a new result
-//        Result newResult = new Result(6, 1, 100, "A", "accepted", "2023-04-03T12:00:00", 1);
+//        Result newResult = new Result(6, 1, 100, "A", "accepted", "2023-04-03T12:00:00", 1, 1);
 //        firebaseService.addResult(newResult);
 //
         // Example: Update a result

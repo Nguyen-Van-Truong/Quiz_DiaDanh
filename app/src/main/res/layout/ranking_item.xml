@@ -5,12 +5,21 @@
     android:orientation="horizontal"
     android:padding="16dp">
 
+    <!-- Rank TextView -->
+    <TextView
+        android:id="@+id/rankTextView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:visibility="gone" /> <!-- Initially set to gone -->
+
     <!-- Icon -->
     <ImageView
         android:id="@+id/iconImageView"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:src="@drawable/ic_launcher_foreground"
+        android:visibility="visible" /> <!-- Initially set to visible -->
 
     <!-- Name -->
     <TextView
