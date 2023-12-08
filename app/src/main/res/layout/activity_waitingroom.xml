@@ -13,8 +13,6 @@
         android:layout_height="match_parent">
 
         <!-- Toolbar at the top -->
-
-        <!-- Quizz Text -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -26,95 +24,105 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_gravity="left|center"
+                android:layout_gravity="center"
                 android:text="Phòng chờ"
                 android:textColor="@color/white"
                 android:textSize="40sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/icOutWaitingRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription=" "
+                android:padding="16dp"
+                android:src="@drawable/ic_out_game2" />
         </androidx.appcompat.widget.Toolbar>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:paddingVertical="15dp">
+
+            <!-- Input -->
+            <EditText
+                android:id="@+id/codeWaitingRoom"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/edit_text_boder"
+                android:paddingHorizontal="70dp"
+                android:text="000000"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <!-- Button -->
+            <Button
+                android:id="@+id/buttonbegin"
+                android:layout_width="290dp"
+                android:layout_height="60dp"
+                android:layout_below="@id/codeWaitingRoom"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_background"
+                android:text="Bắt đầu trò chơi"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/labelPeopleLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonbegin"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal">
+
+                <!-- Image -->
+                <ImageView
+                    android:id="@+id/imagePeople"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:paddingRight="8dp"
+                    android:src="@drawable/ic_people_group" />
+
+                <!-- Text -->
+                <TextView
+                    android:id="@+id/num_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="0"
+                    android:textColor="@color/color_default"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingVertical="15dp"
-                android:layout_below="@id/toolbar">
+                android:layout_below="@+id/labelPeopleLayout"
+                android:layout_marginHorizontal="20dp">
 
-                <!-- Input -->
-                <EditText
-                    android:id="@+id/codeWaitingRoom"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:layout_centerHorizontal="true"
-                    android:text=""
-                    android:textSize="30dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginHorizontal="5dp"
-                    android:paddingHorizontal="70dp"
-                    android:background="@drawable/edit_text_boder"/>
-                <!-- Button -->
-                <Button
-                    android:id="@+id/buttonbegin"
-                    android:layout_width="290dp"
-                    android:layout_height="60dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_below="@id/codeWaitingRoom"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/button_background"
-                    android:text="Bắt đầu trò chơi"
-                    android:textSize="20dp"
-                    android:textStyle="bold"/>
-
-                <LinearLayout
-                    android:id="@+id/labelPeopleLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/buttonbegin"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="horizontal"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <!-- Image -->
-                    <ImageView
-                        android:id="@+id/imagePeople"
-                        android:layout_width="50dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/ic_people_group"
-                        android:paddingRight="8dp" />
-
-                    <!-- Text -->
-                    <TextView
-                        android:id="@+id/num_people"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="5"
-                        android:textSize="30dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_default"/>
-                </LinearLayout>
-                <RelativeLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/labelPeopleLayout"
-                    android:layout_marginHorizontal="20dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="16dp"
-                        android:clipToPadding="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-                        />
-
-                </RelativeLayout>
+                    android:clipToPadding="false"
+                    android:padding="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             </RelativeLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -125,6 +133,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/drawer_menu" />
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quiz_diadanh.adapter.RoomUserAdapter;
@@ -59,7 +62,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         firebaseService = new FirebaseService();
 
-        setupRoomUsersListener(); // Set up the listener
+        setupRoomUsersListener();
         if (!isExiting) {
             attachListeners();
         }
@@ -79,7 +82,13 @@ public class WaitingRoomActivity extends AppCompatActivity {
             }
             checkAllParticipantsBackAndUpdateRoomStatus();
         }
-
+        ImageButton exitButton = findViewById(R.id.icOutWaitingRoom);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showExitConfirmationDialog();
+            }
+        });
     }
 
     @Override
@@ -183,6 +192,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
                         userIds.add(roomUser.getUserId() + "");
                     }
                 }
+                updateParticipantsCount(userIds.size());
+
                 fetchUserDetails(userIds);
             }
 
@@ -194,6 +205,10 @@ public class WaitingRoomActivity extends AppCompatActivity {
         };
 
         roomUsersQuery.addValueEventListener(roomUsersListener);
+    }
+    private void updateParticipantsCount(int count) {
+        TextView numPeopleTextView = findViewById(R.id.num_people);
+        numPeopleTextView.setText(String.valueOf(count));
     }
 
     private void fetchUserDetails(ArrayList<String> userIds) {
@@ -253,6 +268,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
         roomRef.child("status").setValue("playing")
                 .addOnSuccessListener(aVoid -> {
                     updateParticipantsStatus("playing");
+                    room.setStatus("playing");
                     // Start QuizAnswerActivity
                     Intent intent = new Intent(this, QuizAnswerActivity.class);
                     intent.putExtra("room", room);
@@ -311,8 +327,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
         // Reference to the 'rooms' node
         DatabaseReference roomRef = FirebaseDatabase.getInstance().getReference("rooms").child(room.getId() + "");
         roomRef.child("status").setValue("closed") // Update the room status to 'closed'
-                .addOnSuccessListener(aVoid -> Toast.makeText(WaitingRoomActivity.this, "Room status updated to closed", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(WaitingRoomActivity.this, "Failed to update room status", Toast.LENGTH_SHORT).show());
+                .addOnSuccessListener(aVoid -> getRoom_status_updated_to_closed())
+                .addOnFailureListener(e -> getFailed_to_update_room_status());
 
         // Reference to the 'roomUsers' node
         DatabaseReference roomUsersRef = FirebaseDatabase.getInstance().getReference("roomUsers");
@@ -330,6 +346,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
                                     .addOnSuccessListener(aVoid -> Toast.makeText(WaitingRoomActivity.this, "Room user removed", Toast.LENGTH_SHORT).show())
                                     .addOnFailureListener(e -> Toast.makeText(WaitingRoomActivity.this, "Failed to remove room user", Toast.LENGTH_SHORT).show());
                         }
+//                        Intent intent = new Intent(WaitingRoomActivity.this, ChooseTopicActivity.class);
+//                        startActivity(intent);
                         finish();
                     }
 
@@ -339,6 +357,16 @@ public class WaitingRoomActivity extends AppCompatActivity {
                         Toast.makeText(WaitingRoomActivity.this, "Error loading room users: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void getFailed_to_update_room_status() {
+        finish();
+        Toast.makeText(WaitingRoomActivity.this, "Failed to update room status", Toast.LENGTH_SHORT).show();
+    }
+
+    private void getRoom_status_updated_to_closed() {
+        finish();
+        Toast.makeText(WaitingRoomActivity.this, "Room status updated to closed", Toast.LENGTH_SHORT).show();
     }
 
     private void exitRoomAsParticipant(int roomId, int userId) {
@@ -367,7 +395,9 @@ public class WaitingRoomActivity extends AppCompatActivity {
                         if (!userFound) {
                             Toast.makeText(WaitingRoomActivity.this, "User not found in room", Toast.LENGTH_SHORT).show();
                         }
-                        finish(); // Close the activity
+//                        Intent intent = new Intent(WaitingRoomActivity.this, CodeRoomActivity.class);
+//                        startActivity(intent);
+                        finish();
                     }
 
                     @Override

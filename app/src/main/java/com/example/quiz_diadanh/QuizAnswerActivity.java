@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -60,6 +61,13 @@ public class QuizAnswerActivity extends AppCompatActivity {
         radioButton3 = findViewById(R.id.radioButton3);
         radioButton4 = findViewById(R.id.radioButton4);
         imageView = findViewById(R.id.imageView);
+        ImageButton exitButton = findViewById(R.id.icOutRoom);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showExitConfirmationDialog();
+            }
+        });
 
         // Setup navigation drawer
         drawerController = new NavigationDrawerController(this);
@@ -69,6 +77,12 @@ public class QuizAnswerActivity extends AppCompatActivity {
         if (receivedIntent != null) {
             room = (Room) receivedIntent.getSerializableExtra("room");
         }
+        Toast.makeText(QuizAnswerActivity.this, "roomstatus:" + room.getStatus(), Toast.LENGTH_SHORT).show();
+        if (!room.getStatus().equals("playing"))
+            Toast.makeText(QuizAnswerActivity.this, "aaaaroomstatus:" + room.getStatus(), Toast.LENGTH_SHORT).show();
+
+//            finish();
+
         UserPreferences userPreferences = new UserPreferences(this);
         User user = userPreferences.getUser();
         userId = user.getId();
@@ -76,8 +90,11 @@ public class QuizAnswerActivity extends AppCompatActivity {
     }
 
     @Override
+
     protected void onStart() {
         super.onStart();
+        if (!room.getStatus().equals("playing"))
+            Toast.makeText(QuizAnswerActivity.this, "aaaaroomstatus:" + room.getStatus(), Toast.LENGTH_SHORT).show();
         // Load quiz questions for the selected topic when the activity is starting or becoming visible
         getAllQuizForTopic(room.getTopicId());
     }
@@ -119,6 +136,9 @@ public class QuizAnswerActivity extends AppCompatActivity {
 
 
     private void startCountdownTimer(long timeInMillis) {
+        if (!room.getStatus().equals("playing"))
+            Toast.makeText(QuizAnswerActivity.this, "aaaaroomstatus:" + room.getStatus(), Toast.LENGTH_SHORT).show();
+
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
@@ -127,9 +147,7 @@ public class QuizAnswerActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 // Update the timer TextView with the remaining time
-                timerTextView.setText(String.format("%02d:%02d",
-                        millisUntilFinished / 1000 / 60,
-                        millisUntilFinished / 1000 % 60));
+                timerTextView.setText(String.format("%02d:%02d", millisUntilFinished / 1000 / 60, millisUntilFinished / 1000 % 60));
             }
 
             @Override
@@ -251,7 +269,7 @@ public class QuizAnswerActivity extends AppCompatActivity {
             Intent intent = new Intent(QuizAnswerActivity.this, RankingActivity.class);
             intent.putExtra("room", room);
             startActivityForResult(intent, 1);
-//            finish();
+            finish();
         }
     }
 

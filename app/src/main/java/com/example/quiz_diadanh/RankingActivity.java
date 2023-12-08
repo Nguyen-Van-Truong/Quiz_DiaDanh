@@ -42,10 +42,10 @@ public class RankingActivity extends AppCompatActivity {
         btnBackToWaitingRoom = findViewById(R.id.btnBackToWaitingRoom);
 
         btnBackToWaitingRoom.setOnClickListener(v -> {
-            Intent intent = new Intent(RankingActivity.this, WaitingRoomActivity.class);
-            intent.putExtra("userReturnedToRoom", true);
-            intent.putExtra("room", room);
-            startActivity(intent);
+//            Intent intent = new Intent(RankingActivity.this, WaitingRoomActivity.class);
+//            intent.putExtra("userReturnedToRoom", true);
+//            intent.putExtra("room", room);
+//            startActivity(intent);
             finish();
         });
 
