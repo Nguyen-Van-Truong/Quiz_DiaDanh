@@ -10,10 +10,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.quiz_diadanh.CodeRoomActivity;
+import com.example.quiz_diadanh.LoginActivity;
 import com.example.quiz_diadanh.R;
 import com.example.quiz_diadanh.UserAccountActivity;
 import com.example.quiz_diadanh.WaitingRoomActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class NavigationDrawerController {
 
@@ -21,13 +24,14 @@ public class NavigationDrawerController {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
+    private FirebaseAuth auth;
 
     public NavigationDrawerController(AppCompatActivity activity) {
         this.activity = activity;
         drawerLayout = activity.findViewById(R.id.drawer_layout);
         navigationView = activity.findViewById(R.id.nav_view);
+        auth = FirebaseAuth.getInstance();
     }
-
     public void setupDrawer() {
         setupToolbar();
 
@@ -71,7 +75,10 @@ public class NavigationDrawerController {
         txtExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("exit");
+                auth.signOut(); // Sign out from Firebase
+                Intent intent = new Intent(activity, LoginActivity.class);
+                activity.startActivity(intent);
+                activity.finish(); // Finish the current Activity
                 drawerLayout.closeDrawer(navigationView);
             }
         });

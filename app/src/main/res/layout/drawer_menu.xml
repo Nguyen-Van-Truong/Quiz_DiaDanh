@@ -94,7 +94,7 @@
             android:minHeight="48dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Thoát" />
+            android:text="Đăng xuất" />
 
     </LinearLayout>
 
