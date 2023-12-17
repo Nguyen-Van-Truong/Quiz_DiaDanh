@@ -45,16 +45,17 @@
                     android:textColor="@color/white" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/topicNameTextView"
+            <EditText
+                android:id="@+id/topicNameEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/headerLayout"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_topic"
+                android:hint="Điền tên chủ đề"
+                android:inputType="text"
                 android:padding="8dp"
-                android:text="Điền tên chủ đề"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -62,37 +63,37 @@
                 android:id="@+id/infoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/topicNameTextView"
+                android:layout_below="@id/topicNameEditText"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/timerTextView"
+                <EditText
+                    android:id="@+id/timerEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/bg_timer"
                     android:drawableRight="@drawable/ic_timer"
                     android:drawablePadding="4dp"
-                    android:gravity="center"
+                    android:hint="30 giây"
+                    android:inputType="number"
                     android:padding="10dp"
-                    android:text="30 giây"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
-                <!-- Score Indicator -->
-                <TextView
-                    android:id="@+id/scoreTextView"
+                <EditText
+                    android:id="@+id/scoreEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_score"
                     android:drawableRight="@drawable/ic_checkmark"
                     android:drawablePadding="4dp"
-                    android:gravity="center"
+                    android:hint="5 điểm"
+                    android:inputType="number"
                     android:padding="10dp"
-                    android:text="5 điểm"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
             <ImageView
@@ -100,19 +101,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@id/infoLayout"
-                android:src="@drawable/cau1" />
+                android:onClick="selectImage"
+                android:src="@drawable/img_notfound" />
 
-            <TextView
+            <!--            <EditText-->
+            <!--                android:id="@+id/questionTextView"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_below="@id/imageView"-->
+            <!--                android:layout_centerHorizontal="true"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:paddingLeft="10dp"-->
+            <!--                android:hint="C1: Điền câu hỏi"-->
+            <!--                android:inputType="text"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textColorHint="@color/white"-->
+            <!--                android:textSize="18sp" />-->
+
+            <LinearLayout
                 android:id="@+id/questionTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:paddingLeft="10dp"
-                android:text="C1: Câu hỏi ...."
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:orientation="horizontal"
+                android:paddingLeft="10dp">
+
+                <TextView
+                    android:id="@+id/questionPrefixTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="C1:"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:gravity="center_vertical"/>
+
+                <EditText
+                    android:id="@+id/questionEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Điền câu hỏi"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
 
             <!-- Answer Options Layout -->
             <LinearLayout
@@ -124,64 +159,68 @@
                 android:padding="16dp">
 
                 <!-- Answer 1 -->
-                <TextView
+                <EditText
                     android:id="@+id/answerOneTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/answer_selector"
+                    android:clickable="true"
                     android:drawableEnd="@drawable/ic_checkmark"
+                    android:focusable="true"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:text="Thêm tùy chọn 1"
-                    android:textColor="@color/quiz_color_default"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    android:hint="Thêm tùy chọn 1"
+                    android:inputType="text"
+                    android:textColor="@color/quiz_color_default" />
 
                 <!-- Answer 2 -->
-                <TextView
+                <EditText
                     android:id="@+id/answerTwoTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/answer_selector"
+                    android:clickable="true"
                     android:drawableEnd="@drawable/ic_checkmark"
+                    android:focusable="true"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:text="Thêm tùy chọn 2"
-                    android:textColor="@color/quiz_color_default"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    android:hint="Thêm tùy chọn 2"
+                    android:inputType="text"
+                    android:textColor="@color/quiz_color_default" />
 
                 <!-- Answer 3 -->
-                <TextView
+                <EditText
                     android:id="@+id/answerThreeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/answer_selector"
+                    android:clickable="true"
                     android:drawableEnd="@drawable/ic_checkmark"
+                    android:focusable="true"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:text="Thêm tùy chọn 3"
-                    android:textColor="@color/quiz_color_default"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    android:hint="Thêm tùy chọn 3"
+                    android:inputType="text"
+                    android:textColor="@color/quiz_color_default" />
 
                 <!-- Answer 4 -->
-                <TextView
+                <EditText
                     android:id="@+id/answerFourTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/answer_selector"
+                    android:clickable="true"
                     android:drawableEnd="@drawable/ic_checkmark"
+                    android:focusable="true"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:text="Thêm tùy chọn 4"
-                    android:textColor="@color/quiz_color_default"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    android:hint="Thêm tùy chọn 4"
+                    android:inputType="text"
+                    android:textColor="@color/quiz_color_default" />
             </LinearLayout>
 
 

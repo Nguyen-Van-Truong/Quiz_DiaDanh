@@ -31,6 +31,7 @@
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/saveEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -63,6 +64,7 @@
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/btnAddQuiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"

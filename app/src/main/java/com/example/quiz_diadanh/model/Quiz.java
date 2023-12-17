@@ -28,6 +28,18 @@ public class Quiz {
     public Quiz() {
     }
 
+    public Quiz(String question, String optionA, String optionB, String optionC, String optionD, String correctOption, String imageUrl, String status, int topicId) {
+        this.question = question;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
+        this.correctOption = correctOption;
+        this.imageUrl = imageUrl;
+        this.status = status;
+        this.topicId = topicId;
+    }
+
     public int getId() {
         return id;
     }
@@ -120,7 +132,7 @@ public class Quiz {
                 ", correctOption='" + correctOption + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", status='" + status + '\'' +
-                ", topicId='" + topicId + '\'' +
+                ", topicId=" + topicId +
                 '}';
     }
 }

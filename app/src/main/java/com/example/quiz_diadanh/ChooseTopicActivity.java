@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +41,15 @@ public class ChooseTopicActivity extends AppCompatActivity {
 
     private void initViews() {
         categoryContainer = findViewById(R.id.category_container);
+        Button btn_create_quiz = findViewById(R.id.btn_create_quiz);
+        btn_create_quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChooseTopicActivity.this, CreateQuizActivity.class);
+                startActivity(intent);
+            }
+        });
+
         userPreferences = new UserPreferences(this);
     }
 
