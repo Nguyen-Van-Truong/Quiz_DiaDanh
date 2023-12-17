@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         test = findViewById(R.id.test);
         test2 = findViewById(R.id.test2);
 
-//        test.setVisibility(View.GONE);
+        test.setVisibility(View.GONE);
         test2.setVisibility(View.GONE);
 
 
