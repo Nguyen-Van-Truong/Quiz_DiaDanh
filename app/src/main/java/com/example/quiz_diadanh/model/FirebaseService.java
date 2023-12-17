@@ -532,6 +532,11 @@ public class FirebaseService {
         });
     }
 
+    public void addQuiz(Quiz quiz, int quizId) {
+        quiz.setId(quizId);
+        databaseReference.child("quizzes").child(String.valueOf(quizId)).setValue(quiz);
+    }
+
     public void updateQuiz(String quizId, Quiz quiz) {
         databaseReference.child("quizzes").child(quizId).setValue(quiz);
     }
@@ -620,7 +625,7 @@ public class FirebaseService {
         databaseReference.child("room_users").child(roomUserId).removeValue();
     }
 
-    private void getMaxIdFromNode(String node, OnMaxIdReceivedListener listener) {
+    public void getMaxIdFromNode(String node, OnMaxIdReceivedListener listener) {
         databaseReference.child(node).orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
